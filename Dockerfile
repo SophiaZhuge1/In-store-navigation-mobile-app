@@ -9,6 +9,7 @@ WORKDIR /code
 COPY backend/requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY backend/. /code/
+RUN python manage.py migrate
 
 EXPOSE 8000
 
