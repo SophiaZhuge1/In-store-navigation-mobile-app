@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ]
 
 GRAPHENE = {
-    'SCHEMA': 'store_navigation.schema'
+    'SCHEMA' : 'store_navigation.schema.schema'
 }
 
 MIDDLEWARE = [
