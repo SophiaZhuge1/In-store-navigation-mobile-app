@@ -59,17 +59,32 @@ def generate_reduced_matrices(matrix, items_locations, entrance_node):
     distanceDummyRow = []
     pathDataDictionary = {}
     pathDummyRow = []
-    for i in range(matrix.shape[0]):
+    items_locations.append(entrance_node)
+
+    for i in range(items_locations):
         distanceDummyRow.append(float('inf'))
         pathDummyRow.append([])
 
-    items_locations.append(entrance_node)
     for node in items_locations:
         distanceDataDictionary[str(node)] = distanceDummyRow
         pathDataDictionary[str(node)] = pathDummyRow
 
     distanceMatrix = pd.DataFrame(distanceDataDictionary, index=items_locations)
     pathMatrix = pd.DataFrame(pathDataDictionary, index=items_locations)
+
+    pathsToCalculate = []
+    for i in range(len(items_locations) - 1):
+        for j in range(i + 1, len(items_locations)):
+            pathsToCalculate.append((items_locations[i], items_locations[j]))
+
+    for pathTuple in pathsToCalculate:
+        currentOptimalPath = find_shortest_path(matrix, pathTuple[0], pathTuple[1])
+        pathMatrix.iat[pathTuple[0], pathTuple[1]] = currentOptimalPath[0]
+        pathMatrix.iat[pathTuple[1], pathTuple[0]] = currentOptimalPath[0]
+        distanceMatrix.iat[pathTuple[0], pathTuple[1]] = currentOptimalPath[1]
+        distanceMatrix.iat[pathTuple[1], pathTuple[0]] = currentOptimalPath[1]
+
+    return (pathMatrix, distanceMatrix)
 
 ### Dirty Manual Tests ###
 
