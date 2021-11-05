@@ -4,8 +4,8 @@ def load_store():
 
     layout = pd.read_csv("data/store_layout.csv")
     metadata = pd.read_csv("data/store_metadata.csv")
-    width = metadata['xNodesWide'][0]
-    height = metadata['yNodesTall'][0]
+    #width = metadata['xNodesWide'][0]
+    #height = metadata['yNodesTall'][0]
 
     return (layout, metadata)
 
@@ -38,7 +38,7 @@ def find_shortest_path(matrix, start_node, end_node):
         connectionsToNeighbours = pd.to_numeric(connectionsToNeighbours)
         neighbours = list(connectionsToNeighbours.index.values)
 
-        for i in range(neighbours.length):
+        for i in range(len(neighbours)):
             newDistance = currentMinDistance + connectionsToNeighbours[i]
             if newDistance < distanceToNode[int(neighbours[i])]:
                 distanceToNode[int(neighbours[i])] = newDistance
@@ -47,9 +47,14 @@ def find_shortest_path(matrix, start_node, end_node):
     lastNodeInPath = previousNode[end_node]
     pathToEnd = []
     while lastNodeInPath != start_node:
-        pathToEnd.preppend(lastNodeInPath)
+        pathToEnd.insert(0, lastNodeInPath)
         lastNodeInPath = previousNode[lastNodeInPath]
 
-    pathToEnd.preppend(start_node)
+    pathToEnd.insert(0, start_node)
 
     return (pathToEnd, distanceToNode[end_node])
+
+### Dirty Manual Tests ###
+
+storeTuple = load_store()
+print(find_shortest_path(storeTuple[0], 0, 2))
