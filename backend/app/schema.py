@@ -7,9 +7,25 @@ class Stocks(DjangoObjectType):
         model = Items
 
 class Query(graphene.ObjectType):
-    all_items = graphene.List(Stocks)
+    all_items = graphene.List(Stocks) 
+    # query item with id and name 
+    item = graphene.Field(Stocks, id=graphene.Int(), item_name=graphene.String())
 
     def resolve_all_items(self, info, **kwargs):
         return Items.objects.all()
+    
+    def resolve_item(self, info, **kwargs):
+        id = kwargs.get('id')
+        item_name = kwargs.get('item_name')
+
+        if id is not None:
+            return Items.objects.get(pk=id)
+
+        if item_name is not None:
+            return Items.objects.get(item_name = item_name)
+
+        return None
+
+    
 
 
