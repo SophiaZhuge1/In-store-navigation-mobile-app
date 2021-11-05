@@ -5,7 +5,7 @@ export default function CollectItem() {
     // const [isCollected, setCollected] = React.useState(true);
     
     return (
-        <View style={{width:"100%"}}>
+        // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
         <View style={styles.c} >
           <View >
            <Text style={styles.c1}>General Shopping</Text>
@@ -26,7 +26,8 @@ export default function CollectItem() {
             /> */}
          </View>
         </View>
-      </View></View>
+      </View>
+    //   </View>
     );}
 const styles = StyleSheet.create({
     t1:{
@@ -38,12 +39,16 @@ const styles = StyleSheet.create({
     
     
     c:{ 
+        position:"absolute",
+        bottom:0,
         flex:1, 
         borderWidth:1,
         borderTopLeftRadius:100/4,
         borderTopRightRadius:100/4,
         backgroundColor:"blue",
         padding:10,
+        width:"100%",
+        
     },
     c1:{
         flexDirection:"row",

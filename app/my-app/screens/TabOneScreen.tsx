@@ -24,12 +24,12 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       <CollectItem/>
     </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth:1,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
