@@ -45,7 +45,7 @@ def find_shortest_path(matrix, start_node, end_node):
                 previousNode[int(neighbours[i])] = nodeWithMinDistance
 
     lastNodeInPath = previousNode[end_node]
-    pathToEnd = []
+    pathToEnd = [end_node]
     while lastNodeInPath != start_node:
         pathToEnd.insert(0, lastNodeInPath)
         lastNodeInPath = previousNode[lastNodeInPath]
@@ -61,7 +61,7 @@ def generate_reduced_matrices(matrix, items_locations, entrance_node):
     pathDummyRow = []
     items_locations.append(entrance_node)
 
-    for i in range(items_locations):
+    for i in range(len(items_locations)):
         distanceDummyRow.append(float('inf'))
         pathDummyRow.append([])
 
@@ -69,8 +69,10 @@ def generate_reduced_matrices(matrix, items_locations, entrance_node):
         distanceDataDictionary[str(node)] = distanceDummyRow
         pathDataDictionary[str(node)] = pathDummyRow
 
-    distanceMatrix = pd.DataFrame(distanceDataDictionary, index=items_locations)
-    pathMatrix = pd.DataFrame(pathDataDictionary, index=items_locations)
+    distanceMatrix = pd.DataFrame(distanceDataDictionary, index=[str(i) for i in items_locations])
+    pathMatrix = pd.DataFrame(pathDataDictionary, index=[str(i) for i in items_locations])
+
+
 
     pathsToCalculate = []
     for i in range(len(items_locations) - 1):
@@ -79,14 +81,16 @@ def generate_reduced_matrices(matrix, items_locations, entrance_node):
 
     for pathTuple in pathsToCalculate:
         currentOptimalPath = find_shortest_path(matrix, pathTuple[0], pathTuple[1])
-        pathMatrix.iat[pathTuple[0], pathTuple[1]] = currentOptimalPath[0]
-        pathMatrix.iat[pathTuple[1], pathTuple[0]] = currentOptimalPath[0]
-        distanceMatrix.iat[pathTuple[0], pathTuple[1]] = currentOptimalPath[1]
-        distanceMatrix.iat[pathTuple[1], pathTuple[0]] = currentOptimalPath[1]
+        pathMatrix.at[str(pathTuple[0]), str(pathTuple[1])] = currentOptimalPath[0]
+        pathMatrix.at[str(pathTuple[1]), str(pathTuple[0])] = currentOptimalPath[0]
+        distanceMatrix.at[str(pathTuple[0]), str(pathTuple[1])] = currentOptimalPath[1]
+        distanceMatrix.at[str(pathTuple[1]), str(pathTuple[0])] = currentOptimalPath[1]
 
     return (pathMatrix, distanceMatrix)
 
 ### Dirty Manual Tests ###
 
 storeTuple = load_store()
-print(find_shortest_path(storeTuple[0], 12, 13))
+reducedMatrices = generate_reduced_matrices(storeTuple[0], [2, 4], 12)
+print(reducedMatrices[0])
+print(reducedMatrices[1])
