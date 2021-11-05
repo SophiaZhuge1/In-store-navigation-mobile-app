@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { Text, View } from './Themed';
-import { StyleSheet } from 'react-native';
-export default function CollectItem() {
+import { Text, View } from '../components/Themed';
+import { StyleSheet,Button  } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+
+export default function CollectItem ({shoppingList}:{shoppingList:any}) {
+    console.log(shoppingList[0])
+    console.log(shoppingList[0].isCollected)
     // const [isCollected, setCollected] = React.useState(true);
-    
+    var currentItem = shoppingList[0]
     return (
         // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
         <View style={styles.c} >
@@ -12,18 +16,17 @@ export default function CollectItem() {
          </View>
           <View style={styles.c2}>
            <View style={styles.c3}>
-             <Text style={styles.t2}>Rice</Text>
-             <Text>Diection</Text>
+             <Text style={styles.t2}>{shoppingList[0].name}</Text>
+             <Text>Direction</Text>
            </View>
            
            <View style={styles.c4}>
-            {/* <Button
-               type="Outline"
-               
-             
-              onPress={() => setCollected(!isCollected)}
-              title={isCollected ? "Collected"  :"NotCollected"  }      
-            /> */}
+           {/* { true?
+            (<Ionicons name="checkmark-circle-outline"size={32} color="blue" 
+            />):(<Ionicons name="checkmark-circle"size={32} color="blue" 
+            />)} */}
+            <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={32} color="blue" />
+
          </View>
         </View>
       </View>
@@ -45,7 +48,6 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderTopLeftRadius:100/4,
         borderTopRightRadius:100/4,
-        backgroundColor:"blue",
         padding:10,
         width:"100%",
         

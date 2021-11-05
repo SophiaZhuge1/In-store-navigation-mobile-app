@@ -4,8 +4,26 @@ import { Platform, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import CollectItem from '../Collection/CollectItem';
 
 export default function ModalScreen() {
+  //mock list
+  const [shoppingList,setItem] = React.useState([
+		{id:0, name:'Rice', isCollected:false},
+		{id:1, name:'Milk',isCollected:false},
+  ])
+  console.log(shoppingList[0])
+  console.log(shoppingList[0]['isCollected'])
+  shoppingList[0]['isCollected']= ! shoppingList[0]['isCollected']
+  
+  // const [isCollected, setCollected] = React.useState(false);
+  // const item = ["Rice", isCollected]
+
+  const toggleCollect =() => {
+    shoppingList[0].isCollected= ! shoppingList[0].isCollected;
+    () => setItem(shoppingList)
+    //() => setItem(shoppingList => {return item => })//to update component
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal</Text>
@@ -14,6 +32,7 @@ export default function ModalScreen() {
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <CollectItem  shoppingList ={shoppingList}/>
     </View>
   );
 }
