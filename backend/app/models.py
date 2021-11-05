@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Items(models.Model):
-    #item_id = models.IntegerField(default=5)
+    item_id = models.IntegerField(default=9)
     price = models.CharField(max_length=10, default='0.00')
     brand_name = models.CharField(max_length=32, default='Tilda')
     item_name = models.CharField(max_length=62, default='rice')
