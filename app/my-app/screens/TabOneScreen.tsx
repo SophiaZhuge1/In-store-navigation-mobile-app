@@ -7,10 +7,21 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+
+  const [data, setData] = React.useState('');
+  async function getHelloWorld() {
+    const response = await fetch('http://localhost:8000/');
+    let res = await response.text();
+    setData(res);
+  }
+
+  //getHelloWorld();
+
   return (
 
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      {/* <Text style={styles.title}>{data}</Text> */}
+      <Text style={styles.title}>Goddam it</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
