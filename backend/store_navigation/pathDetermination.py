@@ -54,7 +54,24 @@ def find_shortest_path(matrix, start_node, end_node):
 
     return (pathToEnd, distanceToNode[end_node])
 
+def generate_reduced_matrices(matrix, items_locations, entrance_node):
+    distanceDataDictionary = {}
+    distanceDummyRow = []
+    pathDataDictionary = {}
+    pathDummyRow = []
+    for i in range(matrix.shape[0]):
+        distanceDummyRow.append(float('inf'))
+        pathDummyRow.append([])
+
+    items_locations.append(entrance_node)
+    for node in items_locations:
+        distanceDataDictionary[str(node)] = distanceDummyRow
+        pathDataDictionary[str(node)] = pathDummyRow
+
+    distanceMatrix = pd.DataFrame(distanceDataDictionary, index=items_locations)
+    pathMatrix = pd.DataFrame(pathDataDictionary, index=items_locations)
+
 ### Dirty Manual Tests ###
 
 storeTuple = load_store()
-print(find_shortest_path(storeTuple[0], 0, 2))
+print(find_shortest_path(storeTuple[0], 12, 13))
