@@ -9,6 +9,7 @@ export default function MapCanvas() {
   const { width } = Dimensions.get('window');
   const height = 500;
   const circleDiameter = 20;
+  let scale = 1;
 
   interface Point {
     isItem: boolean;
@@ -42,12 +43,6 @@ export default function MapCanvas() {
       y: 130,
     },
   ];
-
-  //See annotations in JS for more information
-  const setup = (p5: p5Types, canvasParentRef: Element) => {
-    p5.createCanvas(width, height).parent(canvasParentRef);
-    img = p5.loadImage(mapImagePath);
-  };
 
   const drawStartingPosition = (p: Point, p5: p5Types) => {
     const { x, y } = p;
@@ -85,9 +80,26 @@ export default function MapCanvas() {
     const { x: x2, y: y2 } = p2;
     p5.stroke(255);
     p5.line(x1, y1, x2, y2);
-  }
+  };
+
+  const changeScale = (event: WheelEvent) => {
+    if (event.deltaY > 0) {
+      scale += 0.1;
+    } else {
+      scale -= 0.1;
+    }
+  };
+
+  //See annotations in JS for more information
+  const setup = (p5: p5Types, canvasParentRef: Element) => {
+    const cnv = p5.createCanvas(width, height).parent(canvasParentRef);
+    img = p5.loadImage(mapImagePath);
+    cnv.mouseWheel(changeScale);
+
+  };
 
   const draw = (p5: p5Types) => {
+    p5.scale(scale);
     p5.background(0);
     p5.image(img, 0, 0, width, height);
     for (let i = 0; i < mockPoints.length - 1; i++) {
@@ -95,6 +107,5 @@ export default function MapCanvas() {
     }
     mockPoints.forEach((p) => drawPoint(p, p5));
   };
-
   return <Sketch setup={setup} draw={draw} />;
 }
