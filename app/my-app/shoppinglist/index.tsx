@@ -1,68 +1,61 @@
-
-import React from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/client';
-import groceryData from './grocery_sample.json';
+import React, { useState } from "react";
 import "./SearchBar.css";
-import { useState } from 'react';
+import SearchIcon from "@material-ui/icons/Search";
+import CloseIcon from "@material-ui/icons/Close";
+import groceryData from './items.json';
 
+function SearchBar({ placeholder, data }) {
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+  const goods = groceryData.filter(entry => entry.model==="app.items")
+  
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = goods.filter((value) => {
+      return value.fields.item_name.toLowerCase().includes(searchWord.toLowerCase());
+    });
 
-const GET_ITEMS = gql`
-    {
-        allItems {
-            itemName
-            brandName
-            aisleId
-          }
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
     }
-`;
-
-export default function ShoppingList() {
-  const client = new ApolloClient({
-    uri: 'http://localhost:8000/graphql/',
-    cache: new InMemoryCache(),
-  });
-  return (
-    <ApolloProvider client={client}>
-      <div className="App">
-        <Items />
-      </div>
-    </ApolloProvider>
-  );
   };
 
-  function Items(){
-    const [searchTerm, setSearchTerm] = useState('')
+  const clearInput = () => {
+    setFilteredData([]);
+    setWordEntered("");
+  };
 
-
-    const { loading, error, data} = useQuery(GET_ITEMS); 
-    if (loading) return <span>Loading...</span>;
-    if (error) return <span>Error. ${error.message}`</span>;
-
-    const items = data.allItems;
-  
-    return (
-      <div className="search">
-        <h1>Items in the shopping list</h1>
-        <input type="text" 
-               placeholder="Search..." 
-               onChange={event => {setSearchTerm(event.target.value)}}/>
-        {groceryData.filter((val)=>{
-          if (searchTerm == "") {
-            return val
-          } else if (val.item_name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())){
-            return val
-          }
-        }).map((val,key) => {
-            return <div><p>{val.item_name}</p></div>;
-        })}
-        
-        { items.map(item => {
-          return <h2 key={item.item_name}></h2>
-        }) }
+  return (
+    <div className="search">
+      <div className="searchInputs">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={wordEntered}
+          onChange={handleFilter}
+        />
+        <div className="searchIcon">
+          {filteredData.length === 0 ? (
+            <SearchIcon />
+          ) : (
+            <CloseIcon id="clearBtn" onClick={clearInput} />
+          )}
+        </div>
       </div>
-    );
+      {filteredData.length != 0 && (
+        <div className="dataResult">
+          {filteredData.slice(0, 15).map((value, key) => {
+            return (
+                <p>{value.fields.item_name} </p>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
-  }
-
+export default SearchBar;
