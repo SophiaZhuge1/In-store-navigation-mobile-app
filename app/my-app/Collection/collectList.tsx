@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
-import { StyleSheet,FlatList  } from 'react-native';
+import { StyleSheet,FlatList,ScrollView  } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 export default function CollectList ({shoppingList,toggleCollect, toCollect}) {
@@ -8,6 +8,7 @@ export default function CollectList ({shoppingList,toggleCollect, toCollect}) {
     return (
         // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
         <View style={styles.c5} >
+            <ScrollView style={styles.scrollList}>
             <FlatList data={shoppingList.filter((item)=> item.isCollected ===false)} renderItem={({item}) => (
                 <View style={styles.c2}>
                     <View style={styles.c3}>
@@ -31,6 +32,7 @@ export default function CollectList ({shoppingList,toggleCollect, toCollect}) {
                     </View>
                 </View>
             )}/>
+            </ScrollView>
         </View>
     );}
 const styles = StyleSheet.create({
@@ -48,8 +50,15 @@ const styles = StyleSheet.create({
         fontWeight:"600",
         color:"blue",
     },
+    scrollList:{
+        padding:0,
+        margin:0,
+        //marginHorizontal: 10,
+        height:150,
+    },
     
     c5:{ 
+        
         borderWidth:1,
         bottom:0,
         paddingLeft:25,
