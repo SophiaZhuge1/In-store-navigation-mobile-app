@@ -1,2 +1,2 @@
-Name, xNodesWide, yNodesTall, inNode, outNode
-test, 4, 3, 12, 13
+Name, inNode, outNode
+test, 26, 59
