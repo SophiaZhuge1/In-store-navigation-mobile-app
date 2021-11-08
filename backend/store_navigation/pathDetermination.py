@@ -50,8 +50,6 @@ def find_shortest_path(matrix, start_node, end_node):
         pathToEnd.insert(0, lastNodeInPath)
         lastNodeInPath = previousNode[lastNodeInPath]
 
-    pathToEnd.insert(0, start_node)
-
     return (pathToEnd, distanceToNode[end_node])
 
 def generate_reduced_matrices(matrix, items_locations, entrance_node):
@@ -72,25 +70,53 @@ def generate_reduced_matrices(matrix, items_locations, entrance_node):
     distanceMatrix = pd.DataFrame(distanceDataDictionary, index=[str(i) for i in items_locations])
     pathMatrix = pd.DataFrame(pathDataDictionary, index=[str(i) for i in items_locations])
 
-
-
     pathsToCalculate = []
     for i in range(len(items_locations) - 1):
         for j in range(i + 1, len(items_locations)):
             pathsToCalculate.append((items_locations[i], items_locations[j]))
 
     for pathTuple in pathsToCalculate:
-        currentOptimalPath = find_shortest_path(matrix, pathTuple[0], pathTuple[1])
-        pathMatrix.at[str(pathTuple[0]), str(pathTuple[1])] = currentOptimalPath[0]
+        currentOptimalPath = find_shortest_path(matrix, pathTuple[1], pathTuple[0])
         pathMatrix.at[str(pathTuple[1]), str(pathTuple[0])] = currentOptimalPath[0]
-        distanceMatrix.at[str(pathTuple[0]), str(pathTuple[1])] = currentOptimalPath[1]
         distanceMatrix.at[str(pathTuple[1]), str(pathTuple[0])] = currentOptimalPath[1]
 
+        currentOptimalPath = find_shortest_path(matrix, pathTuple[0], pathTuple[1])
+        pathMatrix.at[str(pathTuple[0]), str(pathTuple[1])] = currentOptimalPath[0]
+        distanceMatrix.at[str(pathTuple[0]), str(pathTuple[1])] = currentOptimalPath[1]
+
     return (pathMatrix, distanceMatrix)
+
+def nearest_neighbour_path(pathMatrix, distanceMatrix, entrance_node):
+    nextNode = str(entrance_node)
+    pathThroughShop = [entrance_node]
+    distance = 0
+
+    while pathMatrix.shape[0] > 1:
+        prevNode = nextNode
+        nextNode = str(distanceMatrix[nextNode].idxmin())
+        pathThroughShop = pathThroughShop + pathMatrix.at[prevNode, nextNode]
+        distance = distance + distanceMatrix.at[prevNode, nextNode]
+
+        headers = list(pathMatrix.columns.values)
+        correctHead = False
+        if headers[1] == nextNode:
+            correctHead = True
+
+        pathMatrix.drop(prevNode, axis=1, inplace=True)
+        distanceMatrix.drop(prevNode, axis=1, inplace=True)
+        pathMatrix.drop(index=prevNode, inplace=True)
+        distanceMatrix.drop(index=prevNode, inplace=True)
+
+    return (pathThroughShop, distance)
 
 ### Dirty Manual Tests ###
 
 storeTuple = load_store()
+print("Reducing Matrix...")
 reducedMatrices = generate_reduced_matrices(storeTuple[0], [2, 4], 12)
+print("\nBest Paths: ")
 print(reducedMatrices[0])
+print("\nBest Distances: ")
 print(reducedMatrices[1])
+print("\nFinding Optimal Path...")
+bestPath = nearest_neighbour_path(reducedMatrices[0], reducedMatrices[1], 12)
