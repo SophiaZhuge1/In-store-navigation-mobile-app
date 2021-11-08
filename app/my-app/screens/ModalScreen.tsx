@@ -5,18 +5,23 @@ import { Platform, StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import CollectItem from '../Collection/CollectItem';
+import CollectList from '../Collection/collectList';
 
 export default function ModalScreen() {
   //mock list
   const [shoppingList,setShoppingList] = React.useState([
 		{id:0, name:'Rice', isCollected:false},
 		{id:1, name:'Milk',isCollected:false},
+    {id:2, name:'Bread',isCollected:false},
+    {id:3, name:'Sugar',isCollected:false},
   ])
   const [collectedList,setCollectedList] = React.useState([])
+  const [toCollect,setToCollect] = React.useState(0)
+
+  
 
   const toggleCollect = (id) => {
     setShoppingList(prev => {
-      //prev[0].isCollected = !prev[0].isCollected
       return prev.map(item =>
         item.id === id ? {id, name: item.name, isCollected:!item.isCollected} : item
       );
@@ -31,7 +36,10 @@ export default function ModalScreen() {
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-      <CollectItem  shoppingList ={shoppingList} toggleCollect={toggleCollect}/>
+      <View style={{ width:"100%", flexDirection:"column"}}>
+            <CollectItem  shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
+            <CollectList shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
+      </View>
     </View>
   );
 }
