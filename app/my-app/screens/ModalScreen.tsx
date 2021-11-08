@@ -38,10 +38,10 @@ export default function ModalScreen() {
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       <View style={{ position:"absolute", width:"100%", flexDirection:"column"}}>
-            <CollectItem  shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
-            
-              <CollectList shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
-              <Checkout shoppingList={shoppingList}/>
+        <CollectItem  shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
+        
+        <CollectList shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
+        <Checkout shoppingList={shoppingList}/>
             
       </View>
     </View>
