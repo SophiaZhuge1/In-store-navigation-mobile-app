@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         color:"#454545",
     },
     t2:{
-        fontSize:30,
+        fontSize:15,
         fontWeight:"bold"
     },
     t3:{
@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
     
     c5:{ 
         
-        borderWidth:1,
+        //borderWidth:1,
         bottom:0,
         paddingLeft:25,
         paddingRight:20,
         //paddingTop:5,
-        paddingBottom:10,
+        paddingBottom:5,
         // flex:1, 
         justifyContent: "space-end",
         width:"100%",
@@ -78,6 +78,8 @@ const styles = StyleSheet.create({
         //borderWidth:1,
         flexDirection:"row",
         marginTop:5, 
+        borderTopWidth:2,
+        borderTopColor:"silver",
     },
     
     c3:{

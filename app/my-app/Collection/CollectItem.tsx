@@ -18,7 +18,7 @@ export default function CollectItem ({shoppingList,toggleCollect, toCollect}) {
                         <Text style={styles.t3}>Directions</Text>
                     </View>
                     <View style={styles.c4}>
-                        <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={70} onPress={()=>toggleCollect(currentItem.id)} color="blue" />
+                        <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={60} onPress={()=>toggleCollect(currentItem.id)} color="blue" />
                     </View>
                 </View>):
                 (<View style={{alignItems:"center"}}>
@@ -44,34 +44,37 @@ const styles = StyleSheet.create({
     },
     
     c:{ 
-        borderWidth:1,
+        //borderWidth:1,
+        overflow:"hidden",
         //position:"absolute",
         //bottom:0,
         flex:1, 
-        justifyContent: "space-between",
         borderTopLeftRadius:100/2.5,
         borderTopRightRadius:100/2.5,
         paddingLeft:25,
         paddingRight:20,
-        paddingTop:15,
+        paddingTop:10,
+        //height:,
         //paddingBottom:5,
         width:"100%",
         
     },
     c1:{
+        //borderWidth:1,
         //paddingTop:10,
         flexDirection:"row",
     },
     c2:{ 
         //borderWidth:1,
         flexDirection:"row",
-        marginTop:5, 
+        //marginTop:5, 
     },
     
     c3:{
         //borderWidth:1,
         flex:3,
-        justifyContent: "space-evenly",
+        
+        //justifyContent: "space-evenly",
     },
     c4:{
         //borderWidth:1,
