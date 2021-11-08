@@ -5,7 +5,8 @@ import { Platform, StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import CollectItem from '../Collection/CollectItem';
-import CollectList from '../Collection/collectList';
+import CollectList from '../Collection/CollectList';
+import Checkout from '../Collection/Checkout';
 
 export default function ModalScreen() {
   //mock list
@@ -27,7 +28,7 @@ export default function ModalScreen() {
       );
     })
   }
-
+  const listExpended = true
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal</Text>
@@ -36,9 +37,12 @@ export default function ModalScreen() {
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-      <View style={{ width:"100%", flexDirection:"column"}}>
+      <View style={{ position:"absolute", width:"100%", flexDirection:"column"}}>
             <CollectItem  shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
-            <CollectList shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
+            
+              <CollectList shoppingList ={shoppingList} toCollect={toCollect} toggleCollect={toggleCollect}/>
+              <Checkout shoppingList={shoppingList}/>
+            
       </View>
     </View>
   );

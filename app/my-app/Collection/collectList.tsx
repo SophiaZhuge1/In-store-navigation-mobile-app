@@ -4,12 +4,12 @@ import { StyleSheet,FlatList,ScrollView  } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 export default function CollectList ({shoppingList,toggleCollect, toCollect}) {
-    const list = shoppingList.filter
+    
     return (
         // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
         <View style={styles.c5} >
             <ScrollView style={styles.scrollList}>
-            <FlatList data={shoppingList.filter((item)=> item.isCollected ===false)} renderItem={({item}) => (
+            <FlatList data={shoppingList.filter((item)=> item.isCollected ===false).slice(1)} renderItem={({item}) => (
                 <View style={styles.c2}>
                     <View style={styles.c3}>
                         <Text style={styles.t2}>{item.name}</Text>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         padding:0,
         margin:0,
         //marginHorizontal: 10,
-        height:150,
+        height:100,
     },
     
     c5:{ 
