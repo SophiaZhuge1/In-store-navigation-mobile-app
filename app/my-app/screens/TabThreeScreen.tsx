@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
+import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import ShoppingList from '../shoppinglist';
 
-export default function TabTwoScreen() {
+export default function TabThreeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Shopping List</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <ShoppingList />
+      <Text style={styles.title}>Account</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <EditScreenInfo path="/screens/TabThreeScreen.tsx" />
     </View>
   );
 }

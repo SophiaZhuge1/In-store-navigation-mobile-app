@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
+
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-import CollectItem from '../Collection/CollectItem';
+import { RootTabScreenProps } from '../types'
+import MapCanvas from '../map';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
@@ -15,14 +16,15 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     setData(res);
   }
 
-  getHelloWorld();
+  //getHelloWorld();
 
   return (
+
     <View style={styles.container}>
-      <Text style={styles.title}>{data}</Text>
+      {/* <Text style={styles.title}>{data}</Text> */}
+      <Text style={styles.title}>Goddam it</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <CollectItem/>
+      <MapCanvas />
     </View>
     
   );
