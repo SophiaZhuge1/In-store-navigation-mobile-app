@@ -12,6 +12,8 @@ export default function ModalScreen() {
 		{id:0, name:'Rice', isCollected:false},
 		{id:1, name:'Milk',isCollected:false},
   ])
+  const [index, setIndex] = React.useState()
+
   console.log(shoppingList[0])
   console.log(shoppingList[0]['isCollected'])
   shoppingList[0]['isCollected']= ! shoppingList[0]['isCollected']
