@@ -4,7 +4,8 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import { RootTabScreenProps } from '../types'
+import MapCanvas from '../map';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
@@ -23,7 +24,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
       {/* <Text style={styles.title}>{data}</Text> */}
       <Text style={styles.title}>Goddam it</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <MapCanvas />
     </View>
   );
 }
