@@ -8,24 +8,21 @@ import CollectItem from '../Collection/CollectItem';
 
 export default function ModalScreen() {
   //mock list
-  const [shoppingList,setItem] = React.useState([
+  const [shoppingList,setShoppingList] = React.useState([
 		{id:0, name:'Rice', isCollected:false},
 		{id:1, name:'Milk',isCollected:false},
   ])
-  const [index, setIndex] = React.useState()
+  const [collectedList,setCollectedList] = React.useState([])
 
-  console.log(shoppingList[0])
-  console.log(shoppingList[0]['isCollected'])
-  shoppingList[0]['isCollected']= ! shoppingList[0]['isCollected']
-  
-  // const [isCollected, setCollected] = React.useState(false);
-  // const item = ["Rice", isCollected]
-
-  const toggleCollect =() => {
-    shoppingList[0].isCollected= ! shoppingList[0].isCollected;
-    () => setItem(shoppingList)
-    //() => setItem(shoppingList => {return item => })//to update component
+  const toggleCollect = (id) => {
+    setShoppingList(prev => {
+      //prev[0].isCollected = !prev[0].isCollected
+      return prev.map(item =>
+        item.id === id ? {id, name: item.name, isCollected:!item.isCollected} : item
+      );
+    })
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal</Text>
@@ -34,7 +31,7 @@ export default function ModalScreen() {
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-      <CollectItem  shoppingList ={shoppingList}/>
+      <CollectItem  shoppingList ={shoppingList} toggleCollect={toggleCollect}/>
     </View>
   );
 }

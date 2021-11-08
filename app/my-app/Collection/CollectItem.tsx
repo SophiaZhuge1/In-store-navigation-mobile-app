@@ -3,10 +3,11 @@ import { Text, View } from '../components/Themed';
 import { StyleSheet,Button  } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
-export default function CollectItem ({shoppingList}:{shoppingList:any},{index}:{index:any}) {
+export default function CollectItem ({shoppingList,toggleCollect}) {
     // const [isCollected, setCollected] = React.useState(true);
-   
-    var currentItem = shoppingList[0]
+   //({shoppingList}:{shoppingList:any},{toggleCollect})
+    console.log(shoppingList)
+    const currentItem = shoppingList[0]
     console.log(currentItem.isCollected)
     return (
         // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
@@ -25,7 +26,7 @@ export default function CollectItem ({shoppingList}:{shoppingList:any},{index}:{
             (<Ionicons name="checkmark-circle-outline"size={32} color="blue" 
             />):(<Ionicons name="checkmark-circle"size={32} color="blue" 
             />)} */}
-            <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={70} color="blue" />
+            <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={70} onPress={()=>toggleCollect(currentItem.id)} color="blue" />
 
          </View>
         </View>
@@ -35,6 +36,8 @@ export default function CollectItem ({shoppingList}:{shoppingList:any},{index}:{
 const styles = StyleSheet.create({
     t1:{
         fontSize:15,
+        fontWeight:"600",
+        color:"#454545",
     },
     t2:{
         fontSize:30,
@@ -42,6 +45,8 @@ const styles = StyleSheet.create({
     },
     t3:{
         fontSize:20,
+        fontWeight:"600",
+        color:"blue",
     },
     
     c:{ 
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         borderTopLeftRadius:100/2.5,
         borderTopRightRadius:100/2.5,
-        paddingLeft:20,
+        paddingLeft:25,
         paddingRight:20,
         paddingTop:15,
         paddingBottom:10,
@@ -62,23 +67,22 @@ const styles = StyleSheet.create({
     c1:{
         //paddingTop:10,
         flexDirection:"row",
-        borderWidth:1,
     },
     c2:{ 
-        borderWidth:1,
+        //borderWidth:1,
         flexDirection:"row",
         marginTop:5, 
     },
     
     c3:{
-        borderWidth:1,
+        //borderWidth:1,
         flex:3,
         justifyContent: "space-evenly",
     },
     c4:{
-        borderWidth:1,
+        //borderWidth:1,
         justifyContent:"center",
         alignItems:"center",
-        flex:1,
+        flex:2,
     },
 }) 
