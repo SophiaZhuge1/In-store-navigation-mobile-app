@@ -109,14 +109,19 @@ def nearest_neighbour_path(pathMatrix, distanceMatrix, entrance_node):
 
     return (pathThroughShop, distance)
 
-### Dirty Manual Tests ###
+def get_optimal_path_through_store(item_list):
+    storeTuple = load_store()
+    print("Reducing Matrix...")
+    reducedMatrices = generate_reduced_matrices(storeTuple[0], item_list, 12)
+    print("\nBest Paths: ")
+    print(reducedMatrices[0])
+    print("\nBest Distances: ")
+    print(reducedMatrices[1])
+    print("\nFinding Optimal Path...")
+    bestPath = nearest_neighbour_path(reducedMatrices[0], reducedMatrices[1], 12)
+    pathToCheckout = find_shortest_path(storeTuple[0], int(bestPath[0][len(bestPath[0]) - 1]) , 13)
 
-storeTuple = load_store()
-print("Reducing Matrix...")
-reducedMatrices = generate_reduced_matrices(storeTuple[0], [2, 4], 12)
-print("\nBest Paths: ")
-print(reducedMatrices[0])
-print("\nBest Distances: ")
-print(reducedMatrices[1])
-print("\nFinding Optimal Path...")
-bestPath = nearest_neighbour_path(reducedMatrices[0], reducedMatrices[1], 12)
+    return (bestPath[0], pathToCheckout[0])
+
+result = get_optimal_path_through_store([2,4])
+print("Done!")
