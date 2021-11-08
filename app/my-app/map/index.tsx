@@ -3,6 +3,7 @@ import Sketch from 'react-p5';
 import p5Types from 'p5'; //Import this for typechecking and intellisense
 import { Dimensions } from 'react-native';
 import mapImagePath from '../assets/images/mapai-01.png';
+import pointPositions from './pointPositions';
 
 /**
  * Map location point
@@ -11,6 +12,10 @@ interface Point {
   isItem: boolean;
   isStart: boolean;
   pos: p5Types.Vector;
+}
+
+interface MapProps {
+  isMapEnabled: boolean;
 }
 
 /**
@@ -55,7 +60,8 @@ class LineAnimation {
 
   animate() {
     if (this.isDone()) return;
-    const { p5, startPos, endPos, animationSpeed, animationPercentage, ctx } = this;
+    const { p5, startPos, endPos, animationSpeed, animationPercentage, ctx } =
+      this;
     p5.push();
     setLineDash([5, 5], ctx);
     let x = p5.lerp(startPos.x, endPos.x, animationPercentage);
@@ -68,7 +74,10 @@ class LineAnimation {
   }
 }
 
-function setLineDash(list: Array<number>, drawingContext: CanvasRenderingContext2D) {
+function setLineDash(
+  list: Array<number>,
+  drawingContext: CanvasRenderingContext2D
+) {
   if (list.length === 0) {
     drawingContext.setLineDash([]);
   } else {
@@ -76,17 +85,21 @@ function setLineDash(list: Array<number>, drawingContext: CanvasRenderingContext
   }
 }
 
-export default function MapCanvas() {
-  let img: p5Types.Image;
+export default function MapCanvas(props: MapProps) {
+  const [img, setImg] = React.useState<p5Types.Image>(new p5Types.Image());
   const { width } = Dimensions.get('window');
   const height = 500;
   const circleDiameter = 20;
-  let scale = 1;
-  let animations: Array<LineAnimation> = [];
-  let finishedAnimations: Array<LineAnimation> = [];
-  let mockPoints: Array<Point>;
-  let origin: p5Types.Vector;
-  let ctx: CanvasRenderingContext2D;
+  const [scale, setScale] = React.useState(1);
+  const [animations, setAnimations] = React.useState<Array<LineAnimation>>([]);
+  const [finishedAnimations, setFinishedAnimations] = React.useState<
+    Array<LineAnimation>
+  >([]);
+  const [mockPoints, setMockPoints] = React.useState<Array<Point>>([]);
+  const [origin, setOrigin] = React.useState<p5Types.Vector>(
+    new p5Types.Vector()
+  );
+  const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
 
   const drawStartingPosition = (p: Point, p5: p5Types) => {
     const { x, y } = p.pos;
@@ -97,13 +110,17 @@ export default function MapCanvas() {
 
   const drawStoppingPosition = (p: Point, p5: p5Types) => {
     const { x, y } = p.pos;
+    let c: p5Types.Color;
     switch (p.isItem) {
       case true:
-        const c = p5.color(0, 0, 255);
+        c = p5.color(0, 0, 255);
         p5.fill(c);
         p5.circle(x, y, circleDiameter);
         break;
       case false:
+        c = p5.color(0);
+        p5.fill(c);
+        p5.circle(x, y, circleDiameter / 3);
         break;
     }
   };
@@ -123,9 +140,9 @@ export default function MapCanvas() {
 
   const changeScale = (event: WheelEvent) => {
     if (event.deltaY > 0) {
-      scale += 0.1;
+      setScale((scale) => scale + 0.1);
     } else {
-      scale -= 0.1;
+      setScale((scale) => scale - 0.1);
     }
   };
 
@@ -134,75 +151,91 @@ export default function MapCanvas() {
       let currentAnimation = animations[0];
       currentAnimation.animate();
       if (currentAnimation.isDone()) {
-        animations.shift();
-        finishedAnimations.push(currentAnimation);
+        setAnimations((animations) => animations.slice(1));
+        setFinishedAnimations((finishedAnimations) => [
+          ...finishedAnimations,
+          currentAnimation,
+        ]);
       }
     }
   };
 
+  const addGridPoint = (_: MouseEvent, p5: p5Types) => {
+    const { mouseX, mouseY } = p5;
+    const gridPos = {
+      x: Math.round(mouseX / 10) * 10,
+      y: Math.round(mouseY / 10) * 10,
+    };
+    setMockPoints((mockPoints) => [
+      ...mockPoints,
+      {
+        isStart: false,
+        isItem: true,
+        pos: p5.createVector(gridPos.x, gridPos.y),
+      },
+    ]);
+    console.info(`Added point at ${gridPos.x}, ${gridPos.y}`);
+  };
+
   const panView = (p5: p5Types) => {
-    const { mouseX, mouseY, pmouseX, pmouseY } = p5;
-    origin.x += mouseX - pmouseX;
-    origin.y += mouseY - pmouseY;
+    if (props.isMapEnabled) {
+      const { mouseX, mouseY, pmouseX, pmouseY } = p5;
+      setOrigin((origin) =>
+        origin.add(p5.createVector(mouseX - pmouseX, mouseY - pmouseY))
+      );
+    }
   };
 
   //See annotations in JS for more information
   const setup = (p5: p5Types, canvasParentRef: Element) => {
-    // create map points
-    mockPoints = [
-      {
-        isStart: true,
-        isItem: false,
-        pos: p5.createVector(12, 350),
-      },
-      {
-        isStart: false,
-        isItem: true,
-        pos: p5.createVector(150, height - 100),
-      },
-      {
-        isStart: false,
-        isItem: false,
-        pos: p5.createVector(150, 120),
-      },
-      {
-        isStart: false,
-        isItem: true,
-        pos: p5.createVector(200, 120),
-      },
-    ];
     // declare how lines should be joined
     p5.strokeJoin(p5.ROUND);
 
     // create drawing canvas and add event listeners
     const cnv = p5.createCanvas(width, height).parent(canvasParentRef);
-    ctx = cnv.elt.getContext('2d');
+    let tempCtx = cnv.elt.getContext('2d');
+    setCtx(tempCtx);
     cnv.mouseWheel(changeScale);
-    cnv.touchMoved(e => e.preventDefault());
+    cnv.touchMoved((e) => e.preventDefault());
 
+    // enables drawing points on canvas
+    // cnv.mouseClicked((e) => addGridPoint(e, p5));
+
+    // add all points to canvas
+    let tempMockPoints: Array<Point> = [];
+    pointPositions.forEach((p) => {
+      tempMockPoints.push({
+        isStart: p.x === 20 && p.y === 350,
+        isItem: p.isItem,
+        pos: p5.createVector(p.x, p.y),
+      });
+    });
+    setMockPoints(tempMockPoints);
     // load path animations
-    for (let i = 0; i < mockPoints.length - 1; i++) {
-      const p1 = mockPoints[i];
-      const p2 = mockPoints[i + 1];
-      const animation = new LineAnimation(p1.pos, p2.pos, 0.01, p5, ctx);
-      animations.push(animation);
+    for (let i = 0; i < tempMockPoints.length - 1; i++) {
+      const p1 = tempMockPoints[i];
+      const p2 = tempMockPoints[i + 1];
+      const animation = new LineAnimation(p1.pos, p2.pos, 0.1, p5, tempCtx!);
+      setAnimations((animations) => [...animations, animation]);
     }
 
     // load background image
-    img = p5.loadImage(mapImagePath);
+    setImg(p5.loadImage(mapImagePath));
 
     // set origin
-    origin = p5.createVector(0, 0);
+    setOrigin(p5.createVector(0, 0));
   };
 
   const draw = (p5: p5Types) => {
-    p5.scale(scale);
-    p5.translate(origin.x, origin.y);
-    p5.background(200);
-    p5.image(img, 0, 0, width, height);
-    finishedAnimations.forEach((a) => a.drawLine());
-    runAnimations(p5);
-    mockPoints.forEach((p) => drawPoint(p, p5));
+    if (props.isMapEnabled) {
+      p5.scale(scale);
+      p5.translate(origin.x, origin.y);
+      p5.background(200);
+      p5.image(img, 0, 0, 375, height);
+      finishedAnimations.forEach((a) => a.drawLine());
+      runAnimations(p5);
+      mockPoints.forEach((p) => drawPoint(p, p5));
+    }
   };
 
   return <Sketch setup={setup} draw={draw} mouseDragged={panView} />;
