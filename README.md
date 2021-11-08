@@ -19,3 +19,4 @@ After building the docker image, you can run the server by (still being in the p
 ```[bash]
 sh run_docker.sh
 ```
+
