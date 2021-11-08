@@ -24,7 +24,7 @@ function Items(){
       <div>
         <h1>Items in the shopping list</h1>
         {items.map(item => {
-          return <h2 key={item.node.item_name}></h2>
+          return <h2 key={item.itemName}></h2>
         }) }
       </div>
     );
