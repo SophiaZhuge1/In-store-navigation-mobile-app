@@ -1,13 +1,21 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
+import { useState } from 'react';
 
 import { Text, View } from '../components/Themed';
 import ShoppingList from '../shoppinglist';
 
 export default function TabTwoScreen() {
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shopping List</Text>
+      {/* <FlatList
+      data = {items} renderItem = {({item})=>(
+        <ListItem item = {item}/>
+      )}
+      
+      /> */}
       <View
         style={styles.separator}
         lightColor="#eee"
@@ -25,8 +33,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
+    marginTop:25,
   },
   separator: {
     marginVertical: 30,
