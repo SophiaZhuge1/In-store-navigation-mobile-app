@@ -1,4 +1,4 @@
-import Items from './Items';
+
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
@@ -136,3 +136,5 @@ const getTotalPrice = ()=>{
 
   
 }
+
+//export default ShoppingList;
