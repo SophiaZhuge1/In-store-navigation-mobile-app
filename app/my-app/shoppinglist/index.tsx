@@ -15,9 +15,9 @@ export default function ShoppingList() {
     {id: 4, text: 'Bread', quantity:1, price:4}
   ])
 
-  const addItem=(id:number) => {
+  const addItem=(id:number, name:string, newPrice:number) => {
     setItems(prevItems =>{
-      return [...prevItems, {id:5, text:'Butts', quantity:1, price: 5}]
+      return [...prevItems, {id:id, text:name, quantity:1, price: newPrice}]
     });
   }
 
