@@ -113,8 +113,9 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
   });
   return (
     <View style = {styles.container}>
+      
       <FlatList
-        data = {props.items} renderItem = {({item})=>(
+        data = {props.items} renderItem = {({item})=>(item.id==-1?null:
           <ListItem name = {item.text}
           id={item.id}
           quantity = {item.quantity} 
