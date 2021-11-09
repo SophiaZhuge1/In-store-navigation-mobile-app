@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from django.views import View
+from django.http import HttpResponse
 from django.http import JsonResponse
-import json
-from store_navigation.pathDetermination import get_optimal_path_through_store as get_path
-from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from store_navigation.pathDetermination import get_optimal_path_through_store as get_path
+from .models import Items
+
+import json
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -26,6 +29,10 @@ class NavigationAPI(View):
         return JsonResponse(data, status=200)
 
 
-# Create your views here.
 def home(request):
     return render(request, 'index.html')
+
+
+def index(response, item_name):
+    it = Items.objects.get(item_name=item_name)
+    return HttpResponse("<h1>%s</h1><p>%s</p>" % (it.item_name, it.price))
