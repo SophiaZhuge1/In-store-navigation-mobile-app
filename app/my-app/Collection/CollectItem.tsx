@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
-import { StyleSheet,Button  } from 'react-native';
+import { StyleSheet,TouchableOpacity  } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
-export default function CollectItem ({shoppingList,toggleCollect, toCollect}) {
+export default function CollectItem ({shoppingList,toggleCollect, }) {
     console.log(shoppingList)
     const currentItem = shoppingList.filter((item) => item.isCollected === false)[0]
     return (
@@ -18,7 +18,11 @@ export default function CollectItem ({shoppingList,toggleCollect, toCollect}) {
                         <Text style={styles.t3}>Directions</Text>
                     </View>
                     <View style={styles.c4}>
-                        <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={60} onPress={()=>toggleCollect(currentItem.id)} color="blue" />
+                        <TouchableOpacity>
+                            {/* <Ionicons name={!currentItem.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={60} onPress={()=>toggleCollect(currentItem.id)} color="blue" /> */}
+                            <Ionicons name={!onmouseover?"checkmark-circle-outline":"checkmark-circle"}size={60} onPress={()=>toggleCollect(currentItem.id)} color="blue" />
+
+                        </TouchableOpacity>
                     </View>
                 </View>):
                 (<View style={{alignItems:"center"}}>
@@ -44,19 +48,18 @@ const styles = StyleSheet.create({
     },
     
     c:{ 
-        //borderWidth:1,
+        borderWidth:1,
         overflow:"hidden",
         //position:"absolute",
         //bottom:0,
-        flex:1, 
-        borderTopLeftRadius:100/2.5,
-        borderTopRightRadius:100/2.5,
-        paddingLeft:25,
+        flex:2, 
+        borderTopLeftRadius:100/3,
+        borderTopRightRadius:100/3,
+        paddingLeft:20,
         paddingRight:20,
-        paddingTop:10,
-        //height:,
-        //paddingBottom:5,
-        width:"100%",
+        paddingTop:15,
+        //paddingBottom:10,
+        //width:"100%",
         
     },
     c1:{
@@ -73,11 +76,11 @@ const styles = StyleSheet.create({
     c3:{
         //borderWidth:1,
         flex:3,
-        
-        //justifyContent: "space-evenly",
+        justifyContent:"center",
     },
     c4:{
         //borderWidth:1,
+        backgroundColor:"none",
         justifyContent:"center",
         alignItems:"center",
         flex:2,

@@ -4,7 +4,7 @@ import { StyleSheet,Button ,TouchableHighlight } from 'react-native';
 
 export default function Checkout ({shoppingList}) {
     console.log(shoppingList)
-    const sum = 0
+    const sum = 9
     const currentItem = shoppingList.filter((item) => {
         if (item.isCollected === true)
             sum + 1
@@ -12,29 +12,31 @@ export default function Checkout ({shoppingList}) {
     })
     return (
         <View style={styles.c} >
-            <View style={{flexDirection:"row",justifyContent:"space-between", backgroundColor:"blue",}}>
-            <View>
-                <Text>Total Price:£{sum}</Text>
+            <View style={{flexDirection:"column"}}>
+                <View> <Text>Total Price:</Text></View>
+                <View><Text>£{sum/1}</Text></View>
             </View>
             <View style={styles.checkoutBtn}>
                <Text>Checkout</Text> 
-            </View>
             </View>
       </View>
     );}
 const styles = StyleSheet.create({
     c:{ 
+        ///flex:1,
         borderWidth:1,
-        flex:1, 
         backgroundColor:"blue",
-        borderRadius:100/8,
-        padding:10,
-        width:"100%",
+        borderRadius:100/9,
         margin:5,
-        
+        padding:5,
+        //width:"100%",
+        //margin:5,  
+        flexDirection:"row",
+        justifyContent:"space-between",   
     },
     checkoutBtn:{
-        borderRadius:100/2.5,
+        
+        borderRadius:100/8,
         padding:5,
     }
     

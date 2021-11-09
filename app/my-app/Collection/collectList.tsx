@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
-import { StyleSheet,FlatList,ScrollView  } from 'react-native';
+import { StyleSheet,FlatList,ScrollView ,TouchableOpacity } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
-export default function CollectList ({shoppingList,toggleCollect, toCollect}) {
+export default function CollectList ({shoppingList,toggleCollect,}) {
     
     return (
         // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
@@ -25,10 +25,12 @@ export default function CollectList ({shoppingList,toggleCollect, toCollect}) {
                         <Text style={styles.t2}>{item.name}</Text>
                     </View>
                     <View style={styles.c4}>
+                        <TouchableOpacity>
                         {item.isCollected?
                          (<Text style={styles.t1} onPress={()=>toggleCollect(item.id)}>Collected</Text>):
                         (<Ionicons name={!item.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={30} onPress={()=>toggleCollect(item.id)} color="blue" />)
                         }
+                        </TouchableOpacity>
                     </View>
                 </View>
             )}/>
@@ -51,46 +53,56 @@ const styles = StyleSheet.create({
         color:"blue",
     },
     scrollList:{
+        //borderWidth:1,
         padding:0,
         margin:0,
-        //marginHorizontal: 10,
-        height:100,
+        backgroundColor:"none",
     },
     
     c5:{ 
         
         //borderWidth:1,
         bottom:0,
-        paddingLeft:25,
+        paddingLeft:20,
         paddingRight:20,
         //paddingTop:5,
-        paddingBottom:5,
-        // flex:1, 
-        justifyContent: "space-end",
-        width:"100%",
+        //paddingBottom:10,
+        flex:2, 
+        //justifyContent: "space-between",
+        //width:"100%",
+        backgroundColor:"none",
         
     },
+    
+    //List Row
     c1:{
         //paddingTop:10,
         flexDirection:"row",
     },
+
+    
     c2:{ 
         //borderWidth:1,
+        height:35,
+        paddingTop:6,
         flexDirection:"row",
         marginTop:5, 
         borderTopWidth:2,
         borderTopColor:"silver",
+        
     },
     
     c3:{
         //borderWidth:1,
         flex:3,
-        justifyContent: "space-evenly",
+        justifyContent:"center",
+
     },
     c4:{
         //borderWidth:1,
-        justifyContent:"center",
+        backgroundColor:"none",
         alignItems:"center",
+        justifyContent:"center",
         flex:2,
     },
 }) 

@@ -8,6 +8,7 @@ import { RootTabScreenProps } from '../types'
 import MapCanvas from '../map';
 import CollectItem from '../Collection/CollectItem';
 import CollectList from '../Collection/CollectList';
+import Checkout from '../Collection/Checkout';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [shoppingList,setShoppingList] = React.useState([
@@ -36,13 +37,15 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     <View style={styles.container}>
       {/* <Text style={styles.title}>{data}</Text> */}
       
-      <MapCanvas />
+      {/* <MapCanvas /> */}
 
-      <View style={{backgroundColor:"none",justifyContent:"flex-end",bottom:40, width:"100%", flexDirection:"column"}}>
+      <View style={{ backgroundColor:"none",justifyContent:"flex-end", width:"100%", flexDirection:"column"}}>
 
       <CollectItem  shoppingList ={shoppingList}  toggleCollect={toggleCollect}/>
-        
-      <CollectList shoppingList ={shoppingList} toggleCollect={toggleCollect}/>
+      <View style={{borderWidth:1, }}>
+        <CollectList shoppingList ={shoppingList} toggleCollect={toggleCollect}/>
+        <Checkout shoppingList ={shoppingList}/>
+      </View>
       </View>
     </View>
     
