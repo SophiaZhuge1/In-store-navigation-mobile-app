@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 
 import { AppRegistry, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -13,14 +13,19 @@ import Tabs from './navigation/tabs';
 import useFonts from './hooks/usefonts';
 import AppLoading from 'expo-app-loading';
 
-const customTextProps = {
-  style: {
-    fontFamily: `'Inter', sans-serif`,
-  },
-};
+export interface Store {
+  currentItemIndex: number;
+  changeItemIndex: (index: number) => void;
+}
+
+export const DataStoreContext = React.createContext<Store>({
+  currentItemIndex: 0,
+  changeItemIndex: () => {},
+});
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [IsReady, SetIsReady] = useState(false);
   const colorScheme = useColorScheme();
   const LoadFonts = async () => {
@@ -37,13 +42,19 @@ export default function App() {
     );
   } else {
     return (
+      <DataStoreContext.Provider
+        value={{
+          currentItemIndex: currentItemIndex,
+          changeItemIndex: setCurrentItemIndex,
+        }}
+      >
         <SafeAreaProvider>
           <NavigationContainer>
             <Tabs />
           </NavigationContainer>
-          {/*<Navigation colorScheme={colorScheme} />*/}
-          <StatusBar />
+          <StatusBar style={'dark'} />
         </SafeAreaProvider>
+      </DataStoreContext.Provider>
     );
   }
 }

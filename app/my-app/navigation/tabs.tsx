@@ -18,13 +18,20 @@ const Tabs = () => (
             //tabBarShowLabel: false
         }}
     >
-        <Tab.Screen name="Navigation" component={TabOneScreen} 
+        <Tab.Screen name="Tesco Hammersmith" component={TabOneScreen} 
             options={{
+                headerStyle:{
+                    backgroundColor: '#E8E8E8',
+                },
+                headerTitleStyle:{
+                    fontWeight: '600',
+                    fontSize: 18,
+                },
+                headerTitleAlign: 'center',
                 tabBarLabelStyle: {
                     fontSize: 16,
                     marginBottom:16,
                     marginTop: 0
-                
                   },
                 tabBarLabel: 'Navigation',
                 tabBarIcon: (tabInfo) => {

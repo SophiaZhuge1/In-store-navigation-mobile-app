@@ -6,6 +6,7 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import MapCanvas from '../map';
 import MapList from '../components/MapList';
+import { DataStoreContext } from '../App';
 
 export default function TabOneScreen({
   navigation,
@@ -15,10 +16,17 @@ export default function TabOneScreen({
   //getHelloWorld();
 
   return (
-    <View style={styles.container}>
-      <MapCanvas isMapEnabled={isMapEnabled} />
-      <MapList setIsMapEnabled={setIsMapEnabled}/>
-    </View>
+    <DataStoreContext.Consumer>
+      {({ currentItemIndex, changeItemIndex }) => (
+        <View style={styles.container}>
+          <MapCanvas
+            currentItemIndex={currentItemIndex}
+            isMapEnabled={isMapEnabled}
+          />
+          <MapList setIsMapEnabled={setIsMapEnabled} />
+        </View>
+      )}
+    </DataStoreContext.Consumer>
   );
 }
 
@@ -27,6 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: 'rgb(200,200,200)'
+    backgroundColor: '#E8E8E8',
   },
 });

@@ -4,6 +4,7 @@ import p5Types from 'p5'; //Import this for typechecking and intellisense
 import { Dimensions } from 'react-native';
 import mapImagePath from '../assets/images/mapai-01.png';
 import pointPositions from './pointPositions';
+import { DataStoreContext, Store } from '../App';
 
 /**
  * Map location point
@@ -16,6 +17,7 @@ interface Point {
 
 interface MapProps {
   isMapEnabled: boolean;
+  currentItemIndex: number
 }
 
 /**
@@ -88,10 +90,17 @@ function setLineDash(
 export default function MapCanvas(props: MapProps) {
   const [img, setImg] = React.useState<p5Types.Image>(new p5Types.Image());
   const { width } = Dimensions.get('window');
-  const height = 500;
+  const height = Dimensions.get('window').height - 150;
+  const imageDims = {
+    width: 375,
+    height: 500,
+  };
   const circleDiameter = 20;
-  const [scale, setScale] = React.useState(1);
+  const [scale, setScale] = React.useState(width / imageDims.width);
   const [animations, setAnimations] = React.useState<Array<LineAnimation>>([]);
+  const [futureAnimations, setFutureAnimations] = React.useState<
+    Array<LineAnimation>
+  >([]);
   const [finishedAnimations, setFinishedAnimations] = React.useState<
     Array<LineAnimation>
   >([]);
@@ -100,6 +109,31 @@ export default function MapCanvas(props: MapProps) {
     new p5Types.Vector()
   );
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
+  const [animationIndex, setAnimationIndex] = React.useState(0);
+
+  const centerVerticallyToStart = (p5: p5Types) => {
+    const visibleHeight = height - 100;
+    if (imageDims.height < visibleHeight) {
+      const diff = visibleHeight - imageDims.height;
+      setOrigin((origin) => origin.add(0, diff / 2));
+    } else {
+      const diff = imageDims.height - visibleHeight;
+      setOrigin((origin) => origin.add(0, -diff / 2));
+    }
+  };
+
+  const resizeMap = () => {
+    const visibleHeight = height - 100;
+    if (imageDims.height > visibleHeight) {
+      const scale = visibleHeight / imageDims.height;
+      setScale(scale);
+    }
+    if (imageDims.width < width) {
+      const diff = width - imageDims.width;
+      console.log(diff / 2);
+      setOrigin((origin) => origin.add(diff / 2, 0));
+    }
+  };
 
   const drawStartingPosition = (p: Point, p5: p5Types) => {
     const { x, y } = p.pos;
@@ -113,14 +147,11 @@ export default function MapCanvas(props: MapProps) {
     let c: p5Types.Color;
     switch (p.isItem) {
       case true:
-        c = p5.color(0, 0, 255);
+        c = p5.color('#1E539A');
         p5.fill(c);
         p5.circle(x, y, circleDiameter);
         break;
       case false:
-        c = p5.color(0);
-        p5.fill(c);
-        p5.circle(x, y, circleDiameter / 3);
         break;
     }
   };
@@ -186,7 +217,7 @@ export default function MapCanvas(props: MapProps) {
     }
   };
 
-  const addPointsToCanvas = (p5: p5Types) => {
+  const addPointsToCanvas = (p5: p5Types): Array<Point> => {
     // add all points to canvas
     let tempMockPoints: Array<Point> = [];
     pointPositions.forEach((p) => {
@@ -198,7 +229,8 @@ export default function MapCanvas(props: MapProps) {
     });
 
     setMockPoints(tempMockPoints);
-  }
+    return tempMockPoints;
+  };
 
   //See annotations in JS for more information
   const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -215,34 +247,56 @@ export default function MapCanvas(props: MapProps) {
     // enables drawing points on canvas
     // cnv.mouseClicked((e) => addGridPoint(e, p5));
 
-    addPointsToCanvas(p5);
+    let tempMockPoints = addPointsToCanvas(p5);
 
     // load path animations
-    // for (let i = 0; i < tempMockPoints.length - 1; i++) {
-    //   const p1 = tempMockPoints[i];
-    //   const p2 = tempMockPoints[i + 1];
-    //   const animation = new LineAnimation(p1.pos, p2.pos, 0.1, p5, tempCtx!);
-    //   setAnimations((animations) => [...animations, animation]);
-    // }
+    for (let i = 0; i < tempMockPoints.length - 1; i++) {
+      const p1 = tempMockPoints[i];
+      const p2 = tempMockPoints[i + 1];
+      const animation = new LineAnimation(p1.pos, p2.pos, 0.1, p5, tempCtx!);
+      setFutureAnimations((futureAnimations) => [
+        ...futureAnimations,
+        animation,
+      ]);
+    }
 
     // load background image
     setImg(p5.loadImage(mapImagePath));
 
     // set origin
     setOrigin(p5.createVector(0, 0));
+
+    // make sure map is in center of screen
+    resizeMap();
   };
 
   const draw = (p5: p5Types) => {
     if (props.isMapEnabled) {
       p5.scale(scale);
       p5.translate(origin.x, origin.y);
-      p5.background(200);
-      p5.image(img, 0, 0, 375, height);
+      p5.background('#E8E8E8');
+      setImg((img) => {
+        img.resize(375, 500);
+        return img;
+      });
+      p5.image(img, 0, 0);
       finishedAnimations.forEach((a) => a.drawLine());
       runAnimations(p5);
       mockPoints.forEach((p) => drawPoint(p, p5));
     }
   };
+
+  const handleUpdate = () => {
+    const nextAnimation = futureAnimations[props.currentItemIndex];
+    setAnimations((animations) => [...animations, nextAnimation]);
+  };
+
+  React.useEffect(() => {
+    if (props.currentItemIndex > animationIndex) {
+      handleUpdate();
+      setAnimationIndex(props.currentItemIndex);
+    }
+  })
 
   return <Sketch setup={setup} draw={draw} mouseDragged={panView} />;
 }
