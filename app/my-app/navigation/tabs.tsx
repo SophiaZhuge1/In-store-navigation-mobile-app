@@ -13,8 +13,7 @@ const Tabs = () => (
         screenOptions={{
             tabBarStyle: { 
                 position : 'absolute',
-                height: '10%',
-                borderRadius: 10
+                height: '82px',
             },
             //tabBarShowLabel: false
         }}

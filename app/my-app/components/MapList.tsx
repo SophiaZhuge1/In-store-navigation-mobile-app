@@ -29,7 +29,7 @@ export default function MapList(props: MapListProps) {
         <Text style={styles.itemPosition}>Item Position Text</Text>
       </View>
       <View style={styles.rightCol}>
-        <Text>SampleText</Text>
+        <Text style={{color: '#A456E3'}}>SampleText</Text>
       </View>
     </RNSP.default>
   );
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '200px',
     bottom: '81px',
-    paddingTop: '25px',
+    paddingTop: '10px',
     paddingLeft: '20px',
     flexDirection: 'row',
     flex: 1,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   itemPosition: {
     fontSize: 20,
-    color: 'purple',
+    color: '#A456E3',
     marginVertical: '10px',
   },
 });
