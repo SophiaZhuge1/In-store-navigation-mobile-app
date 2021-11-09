@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 
 
@@ -16,16 +18,17 @@ Outputs:
 
 
 def load_store(zeros_in_layout=False, has_header=True):
+    print(os.getcwd())
     if not has_header:
-        layout = pd.read_csv("data/store_layout.csv", header=None)
+        layout = pd.read_csv("/code/store_navigation/data/store_layout.csv", header=None)
         layout.columns = [str(i) for i in list(range(layout.shape[0]))]
     else:
-        layout = pd.read_csv("data/store_layout.csv")
+        layout = pd.read_csv("/code/store_navigation/data/store_layout.csv")
 
     if zeros_in_layout:
         layout.replace([0], float('inf'), inplace=True)
 
-    metadata = pd.read_csv("data/store_metadata.csv")
+    metadata = pd.read_csv("/code/store_navigation/data/store_metadata.csv")
     entrance_node = metadata.iat[0, 1]
     checkout_node = metadata.iat[0, 2]
 

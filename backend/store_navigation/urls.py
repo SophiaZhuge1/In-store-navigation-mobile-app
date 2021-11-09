@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from graphene_django.views import GraphQLView
 from app import views
+from app.views import NavigationAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
-    path('graphql/', GraphQLView.as_view(graphiql=True))
+    path('graphql/', GraphQLView.as_view(graphiql=True)),
+    path('navigation/', NavigationAPI.as_view())
 ]
