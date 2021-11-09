@@ -17,7 +17,7 @@ interface Point {
 
 interface MapProps {
   isMapEnabled: boolean;
-  currentItemIndex: number
+  currentItemIndex: number;
 }
 
 /**
@@ -99,7 +99,7 @@ export default function MapCanvas(props: MapProps) {
   const [scale, setScale] = React.useState(width / imageDims.width);
   const [animations, setAnimations] = React.useState<Array<LineAnimation>>([]);
   const [futureAnimations, setFutureAnimations] = React.useState<
-    Array<LineAnimation>
+    Array<Array<LineAnimation>>
   >([]);
   const [finishedAnimations, setFinishedAnimations] = React.useState<
     Array<LineAnimation>
@@ -250,14 +250,20 @@ export default function MapCanvas(props: MapProps) {
     let tempMockPoints = addPointsToCanvas(p5);
 
     // load path animations
+    let tempAnimations : Array<LineAnimation> = [];
     for (let i = 0; i < tempMockPoints.length - 1; i++) {
       const p1 = tempMockPoints[i];
       const p2 = tempMockPoints[i + 1];
-      const animation = new LineAnimation(p1.pos, p2.pos, 0.1, p5, tempCtx!);
-      setFutureAnimations((futureAnimations) => [
-        ...futureAnimations,
-        animation,
-      ]);
+      const animation = new LineAnimation(p1.pos, p2.pos, 0.05, p5, tempCtx!);
+      tempAnimations.push(animation);
+      if (p2.isItem) {
+        setFutureAnimations((futureAnimations) => [
+          ...futureAnimations,
+          tempAnimations,
+        ]);
+        tempAnimations = [];
+      }
+      
     }
 
     // load background image
@@ -288,7 +294,7 @@ export default function MapCanvas(props: MapProps) {
 
   const handleUpdate = () => {
     const nextAnimation = futureAnimations[props.currentItemIndex];
-    setAnimations((animations) => [...animations, nextAnimation]);
+    setAnimations((animations) => [...animations, ...nextAnimation]);
   };
 
   React.useEffect(() => {
@@ -296,7 +302,7 @@ export default function MapCanvas(props: MapProps) {
       handleUpdate();
       setAnimationIndex(props.currentItemIndex);
     }
-  })
+  });
 
   return <Sketch setup={setup} draw={draw} mouseDragged={panView} />;
 }
