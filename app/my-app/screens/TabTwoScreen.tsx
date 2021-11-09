@@ -13,28 +13,42 @@ import SearchBar from '../shoppinglist/SearchBar';
 export default function TabTwoScreen() {
 
   const [items, setItems] = useState([
-    //{id: -1, text: '', quantity:0, price:0},
-    {id: 1, text: 'Milk', quantity:1, price:1},
-    {id: 2, text: 'Cheese', quantity:1, price:2},
-    {id: 3, text: 'Rice', quantity:1, price:3},
-    {id: 4, text: 'Bread', quantity:1, price:4}
+    {id: -1, text: '', quantity:0, price:0},
+    // {id: 1, text: 'Milk', quantity:1, price:1},
+    // {id: 2, text: 'Cheese', quantity:1, price:2},
+    // {id: 3, text: 'Rice', quantity:1, price:3},
+    // {id: 4, text: 'Bread', quantity:1, price:4}
   ])
 
   const addItem=(id:number, name:string, newPrice:number) => {
-    setItems(prevItems =>{
-      return [...prevItems, {id:id, text:name, quantity:1, price: newPrice}]
+    let alreadyAdded = false;
+    let newCartItems = items.map( (item,index)=>{
+      if (items[index].text == name) {
+        item.quantity +=1;
+        alreadyAdded = true;
+        return item
+      } else {
+        return item;
+      }
     });
+    if(alreadyAdded){
+      setItems(newCartItems);
+    } else{
+    setItems(prevItems =>{
+        return [...prevItems, {id:id, text:name, quantity:1, price: newPrice}]
+      });
+    }
   }
 
-  const deleteItem = (id:number) =>{
+  const deleteItem = (text:string) =>{
     setItems(prevItems =>{
-      return prevItems.filter(item => item.id!=id);
+      return prevItems.filter(item => item.text!=text);
     })
   }
 
- const increaseQuantity = (id:number):void=>{
+ const increaseQuantity = (text:string):void=>{
     let newCartItems = items.map( (item,index)=>{
-      if (index == id-1) {
+      if (items[index].text == text) {
         item.quantity +=1;
         return item
       } else {
@@ -44,9 +58,9 @@ export default function TabTwoScreen() {
     setItems(newCartItems);
   }
 
-  const decreaseQuantity = (id:number):void=>{
+  const decreaseQuantity = (text:string):void=>{
     let newCartItems = items.map( (item,index)=>{
-      if (index == id-1) {
+      if (items[index].text == text) {
         if(item.quantity!=0){
           item.quantity -=1;
           return item
@@ -86,7 +100,12 @@ export default function TabTwoScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <SearchBar />
+      <SearchBar items = {items}
+          increaseQuantity = {increaseQuantity}
+          decreaseQuantity = {decreaseQuantity}
+          deleteItem = {deleteItem}
+          getTotalPrice = {getTotalPrice}
+          addItem = {addItem}/>
       <View
         style={styles.separator}
         lightColor="#eee"

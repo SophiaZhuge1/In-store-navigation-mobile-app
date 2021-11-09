@@ -9,9 +9,9 @@ import { inheritsComments } from '@babel/types';
 
 interface FuncProps{
   items:{id:number, text:string, quantity:number, price:number}[];
-  increaseQuantity(id:number):void;
-  decreaseQuantity(id:number):void;
-  deleteItem(id:number):void;
+  increaseQuantity(text:string):void;
+  decreaseQuantity(text:string):void;
+  deleteItem(text:string):void;
   getTotalPrice():number;
 }
 

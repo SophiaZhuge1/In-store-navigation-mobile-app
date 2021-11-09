@@ -5,7 +5,16 @@ import CloseIcon from "@material-ui/icons/Close";
 import groceryData from './items.json';
 import ShoppingList from './index';
 
-export default function SearchBar() {
+interface FuncProps{
+    items:{id:number, text:string, quantity:number, price:number}[];
+    increaseQuantity(text:string):void;
+    decreaseQuantity(text:string):void;
+    deleteItem(text:string):void;
+    getTotalPrice():number;
+    addItem(id:number, name:string, newPrice:number):void;
+  }
+
+const SearchBar:React.FC<FuncProps>=(props)=> {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [add, setAdd] = useState(false);
@@ -77,7 +86,7 @@ export default function SearchBar() {
           {filteredData.slice(0, 15).map((value, key) => {
             return (
               <li className="list-item" key={value.fields.item_id}>
-                <button type="button" onClick={()=> handleOnClick(value)}>
+                <button type="button" onClick={()=> props.addItem(value.fields.item_id, value.fields.item_name, value.fields.price)}>
                   <span>{value.fields.item_name} </span>
                 </button>
               </li>
@@ -87,3 +96,4 @@ export default function SearchBar() {
       )}
     </div>
   )}
+  export default SearchBar;

@@ -2,14 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ShoppingList from '../shoppinglist';
+import { BackgroundImage } from "react-native-elements/dist/config";
 
 interface FuncProps{
     name:string;
     id:number;
     quantity:number;
-    increaseQuantity(id:number):void;
-    decreaseQuantity(id:number):void;
-    deleteItem(id:number):void;
+    increaseQuantity(text:string):void;
+    decreaseQuantity(text:string):void;
+    deleteItem(text:string):void;
 }
 const ListItem: React.FC<FuncProps>= (props) =>{
     return(
@@ -23,28 +24,28 @@ const ListItem: React.FC<FuncProps>= (props) =>{
                     >Description</Text>
                 </View>
                 <View style = {styles.changeQuantities}>
-                    <TouchableHighlight onPress={()=>props.increaseQuantity(props.id)} underlayColor="red">
+                    <TouchableHighlight onPress={()=>props.increaseQuantity(props.name)} underlayColor="red">
                         <Ionicons
                             name="add-outline"
                             size={30}
-                            color={"black"}
+                            color={"white"}
                             style={styles.listButtons}
                         />
                     </TouchableHighlight>
                         <Text style = {styles.quantityValue}>{props.quantity}</Text>
-                    <TouchableHighlight onPress={()=>props.decreaseQuantity(props.id)} underlayColor="red">
+                    <TouchableHighlight onPress={()=>props.decreaseQuantity(props.name)} underlayColor="red">
                         <Ionicons
                             name="remove-outline"
                             size={30}
-                            color={"black"}
+                            color={"white"}
                             style={styles.listButtons}
                         />
                     </TouchableHighlight>
-                    <TouchableHighlight onPress={()=>props.deleteItem(props.id)} underlayColor="red">
+                    <TouchableHighlight onPress={()=>props.deleteItem(props.name)} underlayColor="red">
                         <Ionicons
                             name="trash-outline"
                             size={30}
-                            color={"red"}
+                            color={"white"}
                             style={styles.listButtons}
                         />
                     </TouchableHighlight>
@@ -71,11 +72,15 @@ const styles = StyleSheet.create({
         alignSelf:"flex-end",
         flexDirection: 'row',
         justifyContent: 'center',
+        position:'absolute',
+        marginLeft:'69%'
     },
     listButtons:{
         borderColor: '#eee',
         margin:0,
-        borderWidth: 1
+        borderWidth: 1,
+        borderRadius:50,
+        backgroundColor:'#1E539A',
     },
     quantityValue:{
         alignSelf:'center',
