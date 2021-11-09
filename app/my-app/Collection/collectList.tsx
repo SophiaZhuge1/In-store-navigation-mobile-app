@@ -12,7 +12,7 @@ export default function CollectList ({shoppingList,toggleCollect,}) {
             <FlatList data={shoppingList.filter((item)=> item.isCollected ===false).slice(1)} renderItem={({item}) => (
                 <View style={styles.c2}>
                     <View style={styles.c3}>
-                        <Text style={styles.t2}>{item.name}</Text>
+                        <Text style={styles.t1}>{item.name}</Text>
                     </View>
                     <View style={styles.c4}>
                         <Ionicons name={!item.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={30} onPress={()=>toggleCollect(item.id)} color="blue" />
@@ -22,12 +22,12 @@ export default function CollectList ({shoppingList,toggleCollect,}) {
             <FlatList data={shoppingList.filter((item)=> item.isCollected ===true)} renderItem={({item}) => (
                 <View style={styles.c2}>
                     <View style={styles.c3}>
-                        <Text style={styles.t2}>{item.name}</Text>
+                        <Text style={styles.t1}>{item.name}</Text>
                     </View>
                     <View style={styles.c4}>
                         <TouchableOpacity>
                         {item.isCollected?
-                         (<Text style={styles.t1} onPress={()=>toggleCollect(item.id)}>Collected</Text>):
+                         (<Text style={styles.t2} onPress={()=>toggleCollect(item.id)}>Collected</Text>):
                         (<Ionicons name={!item.isCollected?"checkmark-circle-outline":"checkmark-circle"}size={30} onPress={()=>toggleCollect(item.id)} color="blue" />)
                         }
                         </TouchableOpacity>
@@ -38,14 +38,15 @@ export default function CollectList ({shoppingList,toggleCollect,}) {
         </View>
     );}
 const styles = StyleSheet.create({
-    t1:{
+    t2:{
         fontSize:15,
         fontWeight:"600",
         color:"#454545",
     },
-    t2:{
+    t1:{
         fontSize:15,
-        fontWeight:"bold"
+        fontWeight:"440",
+        color:"#3b3b3b",
     },
     t3:{
         fontSize:20,
@@ -83,12 +84,12 @@ const styles = StyleSheet.create({
     
     c2:{ 
         //borderWidth:1,
-        height:35,
+        height:40,
         paddingTop:6,
         flexDirection:"row",
         marginTop:5, 
-        borderTopWidth:2,
-        borderTopColor:"silver",
+        borderTopWidth:1,
+        borderTopColor:"#f0f1f2",
         
     },
     
