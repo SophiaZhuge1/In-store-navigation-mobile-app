@@ -3,38 +3,58 @@ import "./SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import groceryData from './items.json';
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import ShoppingList from './index';
 
 export default function SearchBar() {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [add, setAdd] = useState(false);
   const goods = groceryData.filter(entry => entry.model==="app.items")
-  
+  const toggle = () => setAdd(!add);
+
+
   const handleFilter = (event:any) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const newFilter = goods.filter((value) => {
       return value.fields.item_name.toLowerCase().includes(searchWord.toLowerCase());
-    });
+    })
 
     if (searchWord === "") {
       setFilteredData([]);
     } else {
-      setFilteredData(newFilter);
+      setFilteredData(newFilter)
     }
+
   };
 
   const clearInput = () => {
     setFilteredData([]);
     setWordEntered("");
   };
+  
+  /*
+  const handleOnClick = (id, name, price) => {
+    const item_name = goods.filter((val) => {
+      return val.fields.item_name;
+    });
+    const item_id = goods.filter((val) => {
+      return val.fields.item_id;
+    });
+    const price = goods.filter((val) => {
+      return val.fields.price;
+    });
+    ShoppingList.addItem(item_id, item_name, price);
+  }
+*/
 
   return (
-    //   <View>
-    //       <Text>SUp</Text>
-    //   </View>
     <div className="search">
-      <div className="searchInputs">
+      <div className="searchInputs" 
+        tabIndex={0}
+        role="button"
+        onKeyPress={() => toggle(!add)}
+        onClick={() => toggle(!add)}>
         <input
           type="text"
           placeholder="Search..."
@@ -48,15 +68,22 @@ export default function SearchBar() {
             <CloseIcon id="clearBtn" onClick={clearInput} />
           )}
         </div>
+        <div className="header__action">
+          <p>{add ? 'Added' : 'Add'}</p>
+        </div>
       </div>
       {filteredData.length != 0 && (
-        <div className="dataResult">
+        <ul className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-                <p>{value.fields.item_name} </p>
-            );
+              <li className="list-item" key={value.fields.item_id}>
+                <button type="button" onClick={()=> handleOnClick(value)}>
+                  <span>{value.fields.item_name} </span>
+                </button>
+              </li>
+            )
           })}
-        </div>
+        </ul>
       )}
     </div>
   )}
