@@ -7,59 +7,67 @@ import { useState } from 'react';
 import {StyleSheet } from "react-native";
 import { inheritsComments } from '@babel/types';
 
-export default function ShoppingList() {
-  const [items, setItems] = useState([
-    {id: 1, text: 'Milk', quantity:1, price:1},
-    {id: 2, text: 'Cheese', quantity:1, price:2},
-    {id: 3, text: 'Rice', quantity:1, price:3},
-    {id: 4, text: 'Bread', quantity:1, price:4}
-  ])
-
-  const addItem=(id:number, name:string, newPrice:number) => {
-    setItems(prevItems =>{
-      return [...prevItems, {id:id, text:name, quantity:1, price: newPrice}]
-    });
-  }
-
-  const deleteItem = (id:number) =>{
-    setItems(prevItems =>{
-      return prevItems.filter(item => item.id!=id);
-    })
-  }
-
- const increaseQuantity = (id:number):void=>{
-    let newCartItems = items.map( (item,index)=>{
-      if (index == id-1) {
-        console.log(id);
-        item.quantity +=1;
-        return item
-      } else {
-        return item;
-      }
-    });
-    setItems(newCartItems);
-  }
-
-  const decreaseQuantity = (id:number):void=>{
-    let newCartItems = items.map( (item,index)=>{
-      if (index == id-1) {
-        if(item.quantity!=0){
-          console.log(id);
-          item.quantity -=1;
-          return item
-        } else {return item}
-      } else {
-        return item;
-      }
-    });
-    setItems(newCartItems);
-  }
-
-const getTotalPrice = ()=>{
-  //return items.reduce((total,currentItem) =>  total = total + currentItem.price, 0 );
-  return items.reduce((accumulator, current) => accumulator + current.price*current.quantity, 0);
-  
+interface FuncProps{
+  items:{id:number, text:string, quantity:number, price:number}[];
+  increaseQuantity(id:number):void;
+  decreaseQuantity(id:number):void;
+  deleteItem(id:number):void;
+  getTotalPrice():number;
 }
+
+const ShoppingList: React.FC<FuncProps>=(props)=> {
+//   const [items, setItems] = useState([
+//     {id: 1, text: 'Milk', quantity:1, price:1},
+//     {id: 2, text: 'Cheese', quantity:1, price:2},
+//     {id: 3, text: 'Rice', quantity:1, price:3},
+//     {id: 4, text: 'Bread', quantity:1, price:4}
+//   ])
+
+//   const addItem=(id:number, name:string, newPrice:number) => {
+//     setItems(prevItems =>{
+//       return [...prevItems, {id:id, text:name, quantity:1, price: newPrice}]
+//     });
+//   }
+
+//   const deleteItem = (id:number) =>{
+//     setItems(prevItems =>{
+//       return prevItems.filter(item => item.id!=id);
+//     })
+//   }
+
+//  const increaseQuantity = (id:number):void=>{
+//     let newCartItems = items.map( (item,index)=>{
+//       if (index == id-1) {
+//         console.log(id);
+//         item.quantity +=1;
+//         return item
+//       } else {
+//         return item;
+//       }
+//     });
+//     setItems(newCartItems);
+//   }
+
+//   const decreaseQuantity = (id:number):void=>{
+//     let newCartItems = items.map( (item,index)=>{
+//       if (index == id-1) {
+//         if(item.quantity!=0){
+//           console.log(id);
+//           item.quantity -=1;
+//           return item
+//         } else {return item}
+//       } else {
+//         return item;
+//       }
+//     });
+//     setItems(newCartItems);
+//   }
+
+// const getTotalPrice = ()=>{
+  
+//   return props.items.reduce((accumulator, current) => accumulator + current.price*current.quantity, 0);
+  
+// }
 
   const styles = StyleSheet.create({
     container: {
@@ -106,13 +114,13 @@ const getTotalPrice = ()=>{
   return (
     <View style = {styles.container}>
       <FlatList
-        data = {items} renderItem = {({item})=>(
+        data = {props.items} renderItem = {({item})=>(
           <ListItem name = {item.text}
           id={item.id}
           quantity = {item.quantity} 
-          increaseQuantity = {increaseQuantity}
-          decreaseQuantity = {decreaseQuantity}
-          deleteItem = {deleteItem}/>
+          increaseQuantity = {props.increaseQuantity}
+          decreaseQuantity = {props.decreaseQuantity}
+          deleteItem = {props.deleteItem}/>
         )}
       />
       <View style={styles.priceContainer}>
@@ -122,7 +130,7 @@ const getTotalPrice = ()=>{
         </View>
         <View style={styles.price}>
           <Text style={styles.priceText}>Guide Price</Text>
-          <Text style={styles.priceText}>£{getTotalPrice()}</Text>
+          <Text style={styles.priceText}>£{props.getTotalPrice()}</Text>
         </View>
           
       </View>
@@ -137,4 +145,4 @@ const getTotalPrice = ()=>{
   
 }
 
-//export default ShoppingList;
+export default ShoppingList;
