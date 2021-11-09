@@ -131,7 +131,7 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
         </View>
         <View style={styles.price}>
           <Text style={styles.priceText}>Guide Price</Text>
-          <Text style={styles.priceText}>£{props.getTotalPrice()}</Text>
+          <Text style={styles.priceText}>£{props.getTotalPrice().toFixed(2)}</Text>
         </View>
           
       </View>

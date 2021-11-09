@@ -24,29 +24,29 @@ const ListItem: React.FC<FuncProps>= (props) =>{
                     >Description</Text>
                 </View>
                 <View style = {styles.changeQuantities}>
-                    <TouchableHighlight onPress={()=>props.increaseQuantity(props.name)} underlayColor="red">
+                    <TouchableHighlight onPress={()=>props.increaseQuantity(props.name)} underlayColor="red" style={styles.listButtons}>
                         <Ionicons
                             name="add-outline"
                             size={30}
                             color={"white"}
-                            style={styles.listButtons}
+                            style={styles.buttonIcons}
                         />
                     </TouchableHighlight>
                         <Text style = {styles.quantityValue}>{props.quantity}</Text>
-                    <TouchableHighlight onPress={()=>props.decreaseQuantity(props.name)} underlayColor="red">
+                    <TouchableHighlight onPress={()=>props.decreaseQuantity(props.name)} underlayColor="red" style={styles.listButtons}>
                         <Ionicons
                             name="remove-outline"
                             size={30}
                             color={"white"}
-                            style={styles.listButtons}
+                            style={styles.buttonIcons}
                         />
                     </TouchableHighlight>
-                    <TouchableHighlight onPress={()=>props.deleteItem(props.name)} underlayColor="red">
+                    <TouchableHighlight onPress={()=>props.deleteItem(props.name)} underlayColor="red" style={styles.listButtons}>
                         <Ionicons
                             name="trash-outline"
                             size={30}
                             color={"white"}
-                            style={styles.listButtons}
+                            style={styles.buttonIcons}
                         />
                     </TouchableHighlight>
                 </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         position:'absolute',
-        marginLeft:'69%'
+        marginLeft:'65%'
     },
     listButtons:{
         borderColor: '#eee',
@@ -81,6 +81,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius:50,
         backgroundColor:'#1E539A',
+        width:36,
+        alignSelf:'center',
+        justifyContent:'center'
     },
     quantityValue:{
         alignSelf:'center',
@@ -91,6 +94,13 @@ const styles = StyleSheet.create({
     },
     itemDescription:{
         justifyContent: "space-between"
+    },
+    buttonIcons:{
+        alignSelf:'center',
+        justifyContent:'center',
+        marginLeft:2,
+        //backgroundColor:'#1E539A'
+
     }
 
 });
