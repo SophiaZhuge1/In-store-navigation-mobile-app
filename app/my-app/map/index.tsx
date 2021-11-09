@@ -186,6 +186,20 @@ export default function MapCanvas(props: MapProps) {
     }
   };
 
+  const addPointsToCanvas = (p5: p5Types) => {
+    // add all points to canvas
+    let tempMockPoints: Array<Point> = [];
+    pointPositions.forEach((p) => {
+      tempMockPoints.push({
+        isStart: p.x === 20 && p.y === 350,
+        isItem: p.isItem,
+        pos: p5.createVector(p.x, p.y),
+      });
+    });
+
+    setMockPoints(tempMockPoints);
+  }
+
   //See annotations in JS for more information
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // declare how lines should be joined
@@ -201,23 +215,15 @@ export default function MapCanvas(props: MapProps) {
     // enables drawing points on canvas
     // cnv.mouseClicked((e) => addGridPoint(e, p5));
 
-    // add all points to canvas
-    let tempMockPoints: Array<Point> = [];
-    pointPositions.forEach((p) => {
-      tempMockPoints.push({
-        isStart: p.x === 20 && p.y === 350,
-        isItem: p.isItem,
-        pos: p5.createVector(p.x, p.y),
-      });
-    });
-    setMockPoints(tempMockPoints);
+    addPointsToCanvas(p5);
+
     // load path animations
-    for (let i = 0; i < tempMockPoints.length - 1; i++) {
-      const p1 = tempMockPoints[i];
-      const p2 = tempMockPoints[i + 1];
-      const animation = new LineAnimation(p1.pos, p2.pos, 0.1, p5, tempCtx!);
-      setAnimations((animations) => [...animations, animation]);
-    }
+    // for (let i = 0; i < tempMockPoints.length - 1; i++) {
+    //   const p1 = tempMockPoints[i];
+    //   const p2 = tempMockPoints[i + 1];
+    //   const animation = new LineAnimation(p1.pos, p2.pos, 0.1, p5, tempCtx!);
+    //   setAnimations((animations) => [...animations, animation]);
+    // }
 
     // load background image
     setImg(p5.loadImage(mapImagePath));
