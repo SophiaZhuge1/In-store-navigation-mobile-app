@@ -38,7 +38,7 @@ const Tabs = () => (
                       <Ionicons
                         name="analytics-outline"
                         size={40}
-                        color={tabInfo.focused ? "#006600" : "#8e8e93"}
+                        color={tabInfo.focused ? '#1E539A' : "#8e8e93"}
                         style={{
                             marginBottom:0,
                             marginTop: 10
@@ -63,7 +63,7 @@ const Tabs = () => (
                     <Ionicons
                         name="list-outline"
                         size={32}
-                        color={tabInfo.focused ? "#006600" : "#8e8e93"}
+                        color={tabInfo.focused ? "#1E539A" : "#8e8e93"}
                         style={{
                             marginBottom:0,
                             marginTop: 10
@@ -87,7 +87,7 @@ const Tabs = () => (
                     <Ionicons
                         name="person-circle-outline"
                         size={32}
-                        color={tabInfo.focused ? "#006600" : "#8e8e93"}
+                        color={tabInfo.focused ? "#1E539A" : "#8e8e93"}
                         style={{
                             marginBottom:0,
                             marginTop: 10

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { useState } from 'react';
-
+import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from '../components/Themed';
 import ShoppingList from '../shoppinglist';
 import SearchBar from '../shoppinglist/SearchBar';
@@ -79,6 +79,10 @@ export default function TabTwoScreen() {
   }
 
 
+  const getList = ()=>{
+    return items;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -86,7 +90,15 @@ export default function TabTwoScreen() {
           <Text style={styles.shoppinListTex}> Shopping List</Text>
         </View>
         <View style={styles.recommendedButton}>
-          <Text>Recommended</Text>
+          <Text style={styles.recommendedText}>Recommended</Text>
+        </View>
+        <View style={styles.locationButton}>
+        <Ionicons
+            name="location-outline"
+            size={25}
+            color={'#1E539A'}
+            //style={styles.buttonIcons}
+        />
         </View>
       </View>
       {/* <FlatList
@@ -142,31 +154,50 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
   },
   shoppingListButton:{
-    borderRadius:100,
+    borderRadius:50,
     backgroundColor:'#1E539A',
     marginTop:20,
     height:30,
     width:100,
     justifyContent:'center',
     alignSelf:'flex-start',
-    marginRight:175
+    marginRight:250
   },
   shoppinListTex:{
     color:'#FFFFFF',
     fontWeight: 'bold',
-    alignSelf:'center'
+    alignSelf:'center',
+    fontSize:12
+  },
+  recommendedText:{
+    color:'black',
+    fontWeight: 'bold',
+    alignSelf:'flex-end',
+    fontSize:12,
+    marginRight:5
   },
   recommendedButton:{
-    borderRadius:100,
+    borderRadius:50,
     borderColor:'#1E539A',
     borderWidth:2,
     marginTop:20,
-    height:50,
-    width:100,
+    height:30,
+    width:200,
     justifyContent:'center',
     position:'absolute',
-    marginLeft:100,
+    marginLeft:1,
     backgroundColor: 'none'
+  },
+  locationButton:{
+    justifyContent:'center',
+    alignSelf:'center',
+    marginTop:20,
+    borderColor:'#1E539A',
+    borderWidth:2,
+    position:'absolute',
+    borderRadius:50,
+    height: 30,
+    marginLeft:300
   }
 
 });
