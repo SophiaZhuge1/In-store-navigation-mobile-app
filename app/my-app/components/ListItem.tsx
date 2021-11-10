@@ -8,6 +8,7 @@ interface FuncProps{
     name:string;
     id:number;
     quantity:number;
+    description:string;
     increaseQuantity(text:string):void;
     decreaseQuantity(text:string):void;
     deleteItem(text:string):void;
@@ -21,7 +22,7 @@ const ListItem: React.FC<FuncProps>= (props) =>{
                     <Text style={{
                         fontSize: 10
                     }}
-                    >Description</Text>
+                    >Description: {props.description}</Text>
                 </View>
                 <View style = {styles.changeQuantities}>
                     <TouchableHighlight onPress={()=>props.increaseQuantity(props.name)} underlayColor="red" style={styles.listButtons}>

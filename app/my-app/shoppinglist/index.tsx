@@ -8,7 +8,7 @@ import {StyleSheet } from "react-native";
 import { inheritsComments } from '@babel/types';
 
 interface FuncProps{
-  items:{id:number, text:string, quantity:number, price:number}[];
+  items:{id:number, text:string, quantity:number, price:number, description:string}[];
   increaseQuantity(text:string):void;
   decreaseQuantity(text:string):void;
   deleteItem(text:string):void;
