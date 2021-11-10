@@ -9,6 +9,8 @@ interface FuncProps{
     id:number;
     quantity:number;
     description:string;
+    weight:string;
+    brand:string;
     increaseQuantity(text:string):void;
     decreaseQuantity(text:string):void;
     deleteItem(text:string):void;
@@ -18,7 +20,7 @@ const ListItem: React.FC<FuncProps>= (props) =>{
         <View style = {styles.listItem}>
             <View style = {styles.listItemView}>
                 <View style= {styles.itemDescription}>
-                    <Text>{props.name}</Text>
+                    <Text>{props.brand+ " "}{props.name+ " "}{props.weight}</Text>
                     <Text style={{
                         fontSize: 10
                     }}
