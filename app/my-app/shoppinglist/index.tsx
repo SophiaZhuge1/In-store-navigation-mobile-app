@@ -82,7 +82,7 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
       backgroundColor: '#1E539A',
       borderRadius: 15,
       width:'90%',
-      height:100,
+      height: 60,
       marginBottom:100,
       flexDirection:'row',
       justifyContent: 'space-between',
@@ -94,8 +94,14 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
     priceText:{
       color:'white',
       //alignSelf:'center',
-      fontSize:20,
-      fontWeight: 'bold',
+      fontSize:18,
+      fontWeight:'500',
+      
+    },
+    labelText:{
+      color:'white',
+      //alignSelf:'center',
+      fontSize:12,
       
     },
     clubcard:{
@@ -117,7 +123,7 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
   return (
     <View style = {styles.container}>
       
-      <FlatList
+      <FlatList style={{marginTop:20}}
         data = {props.items} renderItem = {({item})=>(item.id==-1?null:
           <ListItem name = {item.text}
           id={item.id}
@@ -130,11 +136,11 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
       />
       <View style={styles.priceContainer}>
         <View style={styles.clubcard}>
-          <Text style={styles.priceText}>Clubcard</Text>
+          <Text style={styles.labelText}>Clubcard</Text>
           <Text style={styles.priceText}>{Math.floor(props.getTotalPrice())}</Text>
         </View>
         <View style={styles.price}>
-          <Text style={styles.priceText}>Guide Price</Text>
+          <Text style={styles.labelText}>Guide Price</Text>
           <Text style={styles.priceText}>£{props.getTotalPrice().toFixed(2)}</Text>
         </View>
           

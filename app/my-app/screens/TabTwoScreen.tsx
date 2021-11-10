@@ -97,6 +97,7 @@ export default function TabTwoScreen() {
             name="location-outline"
             size={25}
             color={'#1E539A'}
+            style={styles.locationIcon}
             //style={styles.buttonIcons}
         />
         </View>
@@ -107,22 +108,22 @@ export default function TabTwoScreen() {
       )}
       
       /> */}
-      <View
+      {/* <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
-      />
+      /> */}
       <SearchBar items = {items}
           increaseQuantity = {increaseQuantity}
           decreaseQuantity = {decreaseQuantity}
           deleteItem = {deleteItem}
           getTotalPrice = {getTotalPrice}
           addItem = {addItem}/>
-      <View
+      {/* <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
-      />
+      /> */}
       
       <ShoppingList items = {items}
           increaseQuantity = {increaseQuantity}
@@ -138,6 +139,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width:'100%',
+    padding:0,
+    backgroundColor:'#f5f6f7'
   },
   title: {
     fontSize: 30,
@@ -152,52 +156,63 @@ const styles = StyleSheet.create({
   header: {
     flexDirection:'row',
     justifyContent:'flex-start',
+    height:78,
+    width:'100%',
+    padding:0,
+    backgroundColor:'#FFFFFF',
+    borderBottomEndRadius:10,
+    borderBottomLeftRadius:10
   },
   shoppingListButton:{
     borderRadius:50,
     backgroundColor:'#1E539A',
-    marginTop:20,
-    height:30,
-    width:100,
+    marginTop:23,
+    height:32,
+    width:119,
     justifyContent:'center',
     alignSelf:'flex-start',
-    marginRight:250
+    marginLeft:20
   },
   shoppinListTex:{
     color:'#FFFFFF',
     fontWeight: 'bold',
     alignSelf:'center',
-    fontSize:12
+    fontSize:14
   },
   recommendedText:{
     color:'black',
     fontWeight: 'bold',
     alignSelf:'flex-end',
-    fontSize:12,
-    marginRight:5
+    fontSize:14,
+    marginRight:8
   },
   recommendedButton:{
     borderRadius:50,
     borderColor:'#1E539A',
     borderWidth:2,
-    marginTop:20,
-    height:30,
-    width:200,
+    marginTop:23,
+    height:32,
+    width:235,
     justifyContent:'center',
     position:'absolute',
-    marginLeft:1,
+    marginLeft:20,
     backgroundColor: 'none'
   },
   locationButton:{
     justifyContent:'center',
-    alignSelf:'center',
-    marginTop:20,
+    alignSelf:'flex-start',
+    marginTop:23,
     borderColor:'#1E539A',
     borderWidth:2,
     position:'absolute',
     borderRadius:50,
-    height: 30,
-    marginLeft:300
+    height: 31,
+    width:42,
+    marginLeft:310
+  },
+  locationIcon:{
+    justifyContent:'center',
+    alignSelf:'center'
   }
 
 });

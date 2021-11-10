@@ -42,7 +42,7 @@ const ListItem: React.FC<FuncProps>= (props) =>{
                             style={styles.buttonIcons}
                         />
                     </TouchableHighlight>
-                    <TouchableHighlight onPress={()=>props.deleteItem(props.name)} underlayColor="red" style={styles.listButtons}>
+                    <TouchableHighlight onPress={()=>props.deleteItem(props.name)} underlayColor="red" style={styles.deleteButtons}>
                         <Ionicons
                             name="trash-outline"
                             size={30}
@@ -82,6 +82,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius:50,
         backgroundColor:'#1E539A',
+        width:36,
+        alignSelf:'center',
+        justifyContent:'center'
+    },
+    deleteButtons:{
+        borderColor: '#eee',
+        margin:0,
+        borderWidth: 1,
+        borderRadius:50,
+        backgroundColor:'#E62432',
         width:36,
         alignSelf:'center',
         justifyContent:'center'

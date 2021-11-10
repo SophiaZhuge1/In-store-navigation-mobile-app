@@ -88,7 +88,7 @@ const SearchBar:React.FC<FuncProps>=(props)=> {
               <li className="list-item" key={value.fields.item_id}>
                 <button type="button" onClick={()=> props.addItem(value.fields.item_id, value.fields.item_name, value.fields.price, value.fields.product_description)}>
                   <span>{value.fields.item_name} </span>
-                  <span>{value.fields.category}</span>
+                  {/* <span>{value.fields.category}</span> */}
                 </button>
               </li>
             )
