@@ -79,13 +79,16 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
     priceContainer:{
       alignSelf:'center',
       //alignItems:'center',
-      backgroundColor: "blue",
+      backgroundColor: '#1E539A',
       borderRadius: 15,
       width:'90%',
       height:100,
       marginBottom:100,
       flexDirection:'row',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.2,
+      
       
     },
     priceText:{

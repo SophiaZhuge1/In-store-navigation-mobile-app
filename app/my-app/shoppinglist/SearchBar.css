@@ -1,19 +1,25 @@
+ul {
+  list-style-type: none;
+ }
+
 .searchInputs {
   /* margin-top: 90px; */
   display: flex;
   margin-left: 20px;
+  border-radius: 50px;
 }
 
 .search input {
   background-color: rgb(255, 255, 255);
   border: 1;
-  border-radius: 2px;
+  /* border-radius: 2px;
   border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-bottom-right-radius: 0px; */
   font-size: 18px;
   padding: 15px;
   height: 20px;
   width: 250px;
+  border-radius: 50px;
 }
 
 .searchIcon {
@@ -39,6 +45,8 @@ input:focus {
   overflow: hidden;
   overflow-y: auto;
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 .dataResult::-webkit-scrollbar {
@@ -76,6 +84,7 @@ button {
   padding: 15px 20px 15px 20px;
   border: 0;
   border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   width: 100%;
   text-align: left;
   border-left: 1px solid #ccc;

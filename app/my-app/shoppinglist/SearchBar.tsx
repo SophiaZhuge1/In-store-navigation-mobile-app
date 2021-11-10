@@ -66,7 +66,7 @@ const SearchBar:React.FC<FuncProps>=(props)=> {
         onClick={() => toggle(!add)}>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Add Item"
           value={wordEntered}
           onChange={handleFilter}
         />
@@ -78,7 +78,7 @@ const SearchBar:React.FC<FuncProps>=(props)=> {
           )}
         </div>
         <div className="header__action">
-          <p>{add ? 'Added' : 'Add'}</p>
+          {/* <p>{add ? 'Added' : 'Add'}</p> */}
         </div>
       </div>
       {filteredData.length != 0 && (
