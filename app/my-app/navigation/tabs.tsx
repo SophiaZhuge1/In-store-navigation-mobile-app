@@ -57,6 +57,7 @@ const Tabs = () => (
         />
         <Tab.Screen name="Shopping List" component={TabTwoScreen} 
             options={{
+                headerShown: false,
                 tabBarLabelStyle: {
                     fontSize: 16,
                     marginBottom:16,
