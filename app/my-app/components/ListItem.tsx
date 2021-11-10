@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     changeQuantities:{
-        alignSelf:"flex-end",
+        alignSelf:"flex-start",
         flexDirection: 'row',
         justifyContent: 'center',
         position:'absolute',
@@ -94,7 +94,9 @@ const styles = StyleSheet.create({
         marginHorizontal:5
     },
     itemDescription:{
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignSelf:'flex-start',
+        width:200,
     },
     buttonIcons:{
         alignSelf:'center',

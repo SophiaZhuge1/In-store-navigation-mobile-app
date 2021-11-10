@@ -121,6 +121,7 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
         data = {props.items} renderItem = {({item})=>(item.id==-1?null:
           <ListItem name = {item.text}
           id={item.id}
+          description = {item.description}
           quantity = {item.quantity} 
           increaseQuantity = {props.increaseQuantity}
           decreaseQuantity = {props.decreaseQuantity}
@@ -130,7 +131,7 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
       <View style={styles.priceContainer}>
         <View style={styles.clubcard}>
           <Text style={styles.priceText}>Clubcard</Text>
-          <Text style={styles.priceText}>9</Text>
+          <Text style={styles.priceText}>{Math.floor(props.getTotalPrice())}</Text>
         </View>
         <View style={styles.price}>
           <Text style={styles.priceText}>Guide Price</Text>

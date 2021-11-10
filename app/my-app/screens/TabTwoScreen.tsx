@@ -13,14 +13,14 @@ import SearchBar from '../shoppinglist/SearchBar';
 export default function TabTwoScreen() {
 
   const [items, setItems] = useState([
-    {id: -1, text: '', quantity:0, price:0},
+    {id: -1, text: '', quantity:0, price:0, description:''},
     // {id: 1, text: 'Milk', quantity:1, price:1},
     // {id: 2, text: 'Cheese', quantity:1, price:2},
     // {id: 3, text: 'Rice', quantity:1, price:3},
     // {id: 4, text: 'Bread', quantity:1, price:4}
   ])
 
-  const addItem=(id:number, name:string, newPrice:number) => {
+  const addItem=(id:number, name:string, newPrice:number, newDescription:string) => {
     let alreadyAdded = false;
     let newCartItems = items.map( (item,index)=>{
       if (items[index].text == name) {
@@ -35,7 +35,7 @@ export default function TabTwoScreen() {
       setItems(newCartItems);
     } else{
     setItems(prevItems =>{
-        return [...prevItems, {id:id, text:name, quantity:1, price: newPrice}]
+        return [...prevItems, {id:id, text:name, quantity:1, price: newPrice, description:newDescription}]
       });
     }
   }
