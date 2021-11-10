@@ -83,13 +83,16 @@ const SearchBar:React.FC<FuncProps>=(props)=> {
       </div>
       {filteredData.length != 0 && (
         <ul className="dataResult">
+
           {filteredData.slice(0, 15).map((value, key) => {
             return (
               <li className="list-item" key={value.fields.item_id}>
                 <button type="button" onClick={()=> props.addItem(value.fields.item_id, value.fields.item_name, value.fields.price, value.fields.product_description, value.fields.net_weight, value.fields.brand_name)}>
                   <span>{value.fields.item_name} </span>
+                  
                   {/* <span>{value.fields.category}</span> */}
                 </button>
+                <hr className="rounded"></hr>
               </li>
             )
           })}

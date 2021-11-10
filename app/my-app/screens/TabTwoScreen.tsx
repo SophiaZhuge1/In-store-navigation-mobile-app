@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from '../components/Themed';
 import ShoppingList from '../shoppinglist';
 import SearchBar from '../shoppinglist/SearchBar';
+import { TextareaAutosize } from '@material-ui/core';
 
 
 
@@ -28,6 +29,7 @@ export default function TabTwoScreen() {
         alreadyAdded = true;
         return item
       } else {
+        
         return item;
       }
     });
@@ -35,6 +37,7 @@ export default function TabTwoScreen() {
       setItems(newCartItems);
     } else{
     setItems(prevItems =>{
+      
         return [...prevItems, {id:id, text:name, quantity:1, price: newPrice, description:newDescription, weight:weight, brand:brand}]
       });
     }
@@ -42,16 +45,21 @@ export default function TabTwoScreen() {
 
   const deleteItem = (text:string) =>{
     setItems(prevItems =>{
+      
       return prevItems.filter(item => item.text!=text);
     })
   }
 
  const increaseQuantity = (text:string):void=>{
     let newCartItems = items.map( (item,index)=>{
+      
       if (items[index].text == text) {
+        console.log('Item name:' + items[index].text);
+      console.log('text:' + text);
         item.quantity +=1;
         return item
       } else {
+        console.log("else");
         return item;
       }
     });
@@ -60,7 +68,7 @@ export default function TabTwoScreen() {
 
   const decreaseQuantity = (text:string):void=>{
     let newCartItems = items.map( (item,index)=>{
-      if (items[index].text == text) {
+      if (items[index].text== text) {
         if(item.quantity!=0){
           item.quantity -=1;
           return item

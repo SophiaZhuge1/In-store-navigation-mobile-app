@@ -24,8 +24,8 @@ const Tabs = () => (
         <Tab.Screen name="Navigation" component={TabOneScreen} 
             options={{
                 tabBarLabelStyle: {
-                    fontSize: 16,
-                    marginBottom:16,
+                    fontSize: 7,
+                    marginBottom:20,
                     marginTop: 0
                 
                 },
@@ -38,15 +38,16 @@ const Tabs = () => (
                     //     }}>Navigation</Text>
                     // </View>
                     return (
-                      <Ionicons
-                        name="analytics-outline"
-                        size={40}
-                        color={tabInfo.focused ? "#1E539A" : "black"}
-                        style={{
-                            marginBottom:0,
-                            marginTop: 10
-                        }}
-                      />
+                        <View style={styles.navButton}>
+                            <Ionicons
+                                name="analytics-outline"
+                                size={25}
+                                color={tabInfo.focused ? "#1E539A" : "black"}
+                                style={{
+                                    marginLeft:3
+                                }}
+                            />
+                      </View>
                     );
                   },
                 tabBarLabelPosition: 'below-icon'
@@ -57,13 +58,10 @@ const Tabs = () => (
                 headerShown:false,
                 tabBarLabelStyle: {
                     fontSize: 7,
-                    marginBottom:25,
+                    marginBottom:20,
                     marginTop: 0
                     
                   },
-                  tabBarActiveBackgroundColor:'white',
-                tabBarInactiveBackgroundColor: 'white',
-                tabBarLabel: 'Shopping List',
                 tabBarIcon: (tabInfo) => {
                     return (
                     <View style={styles.listButton}>
@@ -72,7 +70,7 @@ const Tabs = () => (
                             size={35}
                             color={tabInfo.focused ? "#1E539A" : "black"}
                             style={{
-                                marginLeft:2
+                                marginLeft:3
                             }}
                         />
                     </View>
@@ -84,7 +82,7 @@ const Tabs = () => (
             options={{
                 tabBarLabelStyle: {
                     fontSize: 7,
-                    marginBottom:30,
+                    marginBottom:20,
                     marginTop: 0
                 
                   },
@@ -97,7 +95,7 @@ const Tabs = () => (
                             size={25}
                             color={tabInfo.focused ? "#1E539A" : 'black'}
                             style={{
-                                marginLeft:1
+                                marginLeft:2
                             }}
                         />
                     </View>
@@ -114,8 +112,8 @@ const styles = StyleSheet.create({
         marginTop:15,
         backgroundColor:'#e8e8e8',
         borderRadius:50,
-        width:27,
-        height:27,
+        width:29,
+        height:29,
         justifyContent:'center',
         alignSelf:'center',
         padding:0

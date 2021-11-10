@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { View, Text, StyleSheet, TouchableHighlight, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ShoppingList from '../shoppinglist';
 import { BackgroundImage } from "react-native-elements/dist/config";
+
 
 interface FuncProps{
     name:string;
@@ -19,12 +20,20 @@ const ListItem: React.FC<FuncProps>= (props) =>{
     return(
         <View style = {styles.listItem}>
             <View style = {styles.listItemView}>
-                <View style= {styles.itemDescription}>
-                    <Text>{props.brand+ " "}{props.name+ " "}{props.weight}</Text>
-                    <Text style={{
-                        fontSize: 10
-                    }}
-                    >Description: {props.description}</Text>
+                <View style={{flexDirection:'row'}}>
+
+                    <Image
+                        style={styles.icons}
+                        
+                        source={require('../assets/Icons/' + props.name +'.png')}
+                    />
+                    <View style= {styles.itemDescription}>
+                        <Text>{props.brand+ " "}{props.name+ " "}{props.weight}</Text>
+                        <Text style={{
+                            fontSize: 10
+                        }}
+                        >{props.description}</Text>
+                    </View>
                 </View>
                 <View style = {styles.changeQuantities}>
                     <TouchableHighlight onPress={()=>props.increaseQuantity(props.name)} underlayColor="red" style={styles.listButtons}>
@@ -116,6 +125,13 @@ const styles = StyleSheet.create({
         marginLeft:2,
         //backgroundColor:'#1E539A'
 
+    }, 
+    icons:{
+        width:20,
+        height:20,
+        paddingRight:0,
+        marginRight: 4,
+        
     }
 
 });
