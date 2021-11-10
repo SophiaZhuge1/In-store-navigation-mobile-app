@@ -119,7 +119,7 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
       
       <FlatList
         data = {props.items} renderItem = {({item})=>(item.id==-1?null:
-          <ListItem name = {item.text}
+          <ListItem name = {(item.text)[0].toUpperCase()+(item.text).slice(1)}
           id={item.id}
           description = {(item.description).split('\n')[0]}
           weight = {item.weight}
