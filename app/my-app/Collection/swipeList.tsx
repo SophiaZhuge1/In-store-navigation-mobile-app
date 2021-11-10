@@ -1,30 +1,28 @@
 import * as React from 'react';
-import { Text, View } from '../components/Themed';
-import { StyleSheet,FlatList,ScrollView ,TouchableOpacity,Animated } from 'react-native';
+import { View } from '../components/Themed';
 import CollectItem from './CollectItem';
 import CollectList from './CollectList';
 import Checkout from './Checkout';
+import { DataStoreContext } from '../store';
+import { Items, Item } from '../apptypes';
 
-export default function SwipeList () {
-    const [shoppingList,setShoppingList] = React.useState([
-		{id:0, name:'Rice', isCollected:false, price:5},
-		{id:1, name:'Milk',isCollected:false, price:1.25},
-        {id:2, name:'Bread',isCollected:false, price:0.9},
-        {id:3, name:'Sugar',isCollected:false, price:2.5},
-  ])
-  const toggleCollect = (id) => {
-    setShoppingList(prev => {
-      return prev.map(item =>
-        item.id === id ? {id, name: item.name, isCollected:!item.isCollected, price:item.price} : item
-      );
-    })
-  }
-return (
-<View style={{ backgroundColor:"none", width:"100%", flexDirection:"column"}}>
-    <CollectItem  shoppingList ={shoppingList}  toggleCollect={toggleCollect}/>
-    <View style={{ }}>
-        <CollectList shoppingList ={shoppingList} toggleCollect={toggleCollect}/>
-        <Checkout shoppingList ={shoppingList}/>
+
+
+export default function SwipeList() {
+  const { itemList, setItemList, toggleCollect } = React.useContext(DataStoreContext);
+ 
+  return (
+    <View
+      style={{
+        backgroundColor: 'white',
+        width: '100%',
+        flexDirection: 'column',
+      }}
+    >
+      <View style={{ backgroundColor: 'white' }}>
+        <CollectList shoppingList={itemList} toggleCollect={toggleCollect} />
+        <Checkout />
+      </View>
     </View>
-</View>
-);}
+  );
+}
