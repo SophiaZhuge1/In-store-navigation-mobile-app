@@ -1,15 +1,45 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import React, { useState } from "react";
+import { StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StatusBar } from "expo-status-bar";
 import { Text, View } from '../components/Themed';
 
 export default function TabThreeScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Account</Text>
+      <Text style={styles.title}>My Account</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabThreeScreen.tsx" />
+      
+
+      <StatusBar style="auto" />
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email."
+          placeholderTextColor="#003f5c"
+          onChangeText={(email) => setEmail(email)}
+        />
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Password."
+          secureTextEntry={true}
+          placeholderTextColor="#003f5c"
+          onChangeText={(password) => setPassword(password)}
+        />
+      </View>
+
+      <TouchableOpacity>
+        <Text style={styles.forgot_button}>Forgot Password?</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginBtn}>
+        <Text style={styles.loginText}>LOGIN</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -24,9 +54,48 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  inputView: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+
+    alignItems: "center",
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+  },
+  forgot_button: {
+    height: 30,
+    marginBottom: 30,
+    fontSize: 12,
+  },
+
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#1E539A",
+  },
+
+  loginText:{
+    fontWeight: 'bold',
+    alignSelf:'center',
+    fontSize:12
+  },
+
   separator: {
     marginVertical: 30,
     height: 1,
     width: '80%',
   },
 });
+
+

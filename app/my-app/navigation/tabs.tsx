@@ -2,6 +2,7 @@ import React from 'react';
 import { BottomTabBarHeightContext, createBottomTabNavigator, useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
+import SplashScreenScreen from '../screens/SplashScreen';
 import { Text, View } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Colors from '../constants/Colors';
@@ -73,7 +74,7 @@ const Tabs = () => (
                 },
             }}
         />
-        <Tab.Screen name="Account" component={TabTwoScreen} 
+        <Tab.Screen name="Account" component={SplashScreenScreen} 
             options={{
                 tabBarLabelStyle: {
                     fontSize: 16,
