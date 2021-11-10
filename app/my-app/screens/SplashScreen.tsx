@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E539A'
   },
   header: {
-      flex: 2,
+      flex: 1.5,
       justifyContent: 'center',
       alignItems: 'center'
   },
@@ -91,10 +91,10 @@ const styles = StyleSheet.create({
       fontSize :16
   },
   button: {
-    borderRadius:50,
+    borderRadius:40,
     backgroundColor:'#1E539A',
     marginTop:20,
-    height:50,
+    height:40,
     width:250,
     justifyContent:'center',
     alignSelf:'flex-start',
@@ -115,12 +115,11 @@ const styles = StyleSheet.create({
       textAlign: 'center',
   },
   button2: {
-    borderRadius:50,
+    borderRadius:40,
     borderWidth:2,
-    //backgroundColor:'white',
     borderColor: '#1E539A',
     marginTop:20,
-    height:50,
+    height:40,
     width:250,
     justifyContent:'center',
     alignSelf:'flex-start',

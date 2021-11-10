@@ -9,8 +9,8 @@ import SignUpScreen from './SignUpScreen';
 
 const RootStack = createStackNavigator();
 
-const RootStackScreen = ({navigation}:any) => (
-    <RootStack.Navigator>
+const RootStackScreen = () => (
+    <RootStack.Navigator initialRouteName='SplashScreen'>
         <RootStack.Screen name="SplashScreen" component={SplashScreen}/>
         <RootStack.Screen name="SignInScreen" component={SignInScreen}/>
         <RootStack.Screen name="SignUpScreen" component={SignUpScreen}/>

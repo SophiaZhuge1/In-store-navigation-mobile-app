@@ -2,7 +2,9 @@ import React from 'react';
 import { BottomTabBarHeightContext, createBottomTabNavigator, useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
-import SplashScreenScreen from '../screens/SplashScreen';
+import SplashScreen from '../screens/SplashScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+//import SignInScreen from '../screens/SignInScreen';
 import { Text, View } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Colors from '../constants/Colors';
@@ -74,7 +76,7 @@ const Tabs = () => (
                 },
             }}
         />
-        <Tab.Screen name="Account" component={SplashScreenScreen} 
+        <Tab.Screen name="Account" component={SplashScreen} 
             options={{
                 tabBarLabelStyle: {
                     fontSize: 16,
@@ -98,7 +100,33 @@ const Tabs = () => (
                 },
             }}
         />
+        <Tab.Screen name="Sign Up" component={SignUpScreen} 
+                    options={{
+                        tabBarLabelStyle: {
+                            fontSize: 16,
+                            marginBottom:16,
+                            marginTop: 0
+                        
+                        },
+                        tabBarLabel: 'Sign Up',
+                        tabBarIcon: (tabInfo) => {
+                            return (
+                            <Ionicons
+                                name="person-circle-outline"
+                                size={32}
+                                color={tabInfo.focused ? "#1E539A" : "#8e8e93"}
+                                style={{
+                                    marginBottom:0,
+                                    marginTop: 10
+                                }}
+                            />
+                            );
+                        },
+                    }}
+                />
 
     </Tab.Navigator>
+
+    
 )
 export default Tabs;
