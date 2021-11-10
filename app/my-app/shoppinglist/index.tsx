@@ -8,7 +8,7 @@ import {StyleSheet } from "react-native";
 import { inheritsComments } from '@babel/types';
 
 interface FuncProps{
-  items:{id:number, text:string, quantity:number, price:number, description:string}[];
+  items:{id:number, text:string, quantity:number, price:number, description:string, weight:string, brand:string}[];
   increaseQuantity(text:string):void;
   decreaseQuantity(text:string):void;
   deleteItem(text:string):void;
@@ -121,7 +121,9 @@ const ShoppingList: React.FC<FuncProps>=(props)=> {
         data = {props.items} renderItem = {({item})=>(item.id==-1?null:
           <ListItem name = {item.text}
           id={item.id}
-          description = {item.description}
+          description = {(item.description).split('\n')[0]}
+          weight = {item.weight}
+          brand = {item.brand}
           quantity = {item.quantity} 
           increaseQuantity = {props.increaseQuantity}
           decreaseQuantity = {props.decreaseQuantity}

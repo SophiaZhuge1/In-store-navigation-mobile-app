@@ -6,12 +6,12 @@ import groceryData from './items.json';
 import ShoppingList from './index';
 
 interface FuncProps{
-    items:{id:number, text:string, quantity:number, price:number, description:string}[];
+    items:{id:number, text:string, quantity:number, price:number, description:string, weight:string, brand:string}[];
     increaseQuantity(text:string):void;
     decreaseQuantity(text:string):void;
     deleteItem(text:string):void;
     getTotalPrice():number;
-    addItem(id:number, name:string, newPrice:number, description:string):void;
+    addItem(id:number, name:string, newPrice:number, description:string, weight:string, brand:string):void;
   }
 
 const SearchBar:React.FC<FuncProps>=(props)=> {
@@ -86,7 +86,7 @@ const SearchBar:React.FC<FuncProps>=(props)=> {
           {filteredData.slice(0, 15).map((value, key) => {
             return (
               <li className="list-item" key={value.fields.item_id}>
-                <button type="button" onClick={()=> props.addItem(value.fields.item_id, value.fields.item_name, value.fields.price, value.fields.product_description)}>
+                <button type="button" onClick={()=> props.addItem(value.fields.item_id, value.fields.item_name, value.fields.price, value.fields.product_description, value.fields.net_weight, value.fields.brand_name)}>
                   <span>{value.fields.item_name} </span>
                   <span>{value.fields.category}</span>
                 </button>
