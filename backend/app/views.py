@@ -12,7 +12,7 @@ import json
 
 @method_decorator(csrf_exempt, name='dispatch')
 class NavigationAPI(View):
-    def get(self, request):
+    def post(self, request):
         data = json.loads(request.body.decode("utf-8"))
         list_of_item_locations = data.get('list_of_item_locations')
 

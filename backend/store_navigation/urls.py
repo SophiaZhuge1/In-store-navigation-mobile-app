@@ -25,7 +25,7 @@ from app.views import NavigationAPI
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
-    path('navigation/', NavigationAPI.as_view())
+    path('navigation/', NavigationAPI.as_view()),
     path('<str:item_name>', views.index, name="index"),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True)))
 ]

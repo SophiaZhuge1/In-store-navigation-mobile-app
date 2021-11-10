@@ -1,9 +1,7 @@
 # syntax=docker/dockerfile:1
-FROM python:3.8-alpine
+FROM python:3.8
 LABEL name="django_backend" \
       version="0.0.1"
-
-RUN apk --no-cache add musl-dev linux-headers g++
 
 ENV PYTHONUNBUFFERED=1
 
