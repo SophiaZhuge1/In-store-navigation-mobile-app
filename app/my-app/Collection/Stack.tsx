@@ -13,8 +13,7 @@ const MyStack = createStackNavigator();
 
 export default function Stack() {
   return (
-    <MyStack.Navigator initialRouteName="SwipeList" screenOptions={{headerShown:false}}>
-        
+    <MyStack.Navigator initialRouteName="SwipeList" screenOptions={{headerShown:false}}>  
         <MyStack.Screen name="SwipeList" component={SwipeList}/>
         <MyStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
         <MyStack.Screen name="PayScreen" component={PayScreen} />
