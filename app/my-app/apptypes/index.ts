@@ -3,6 +3,7 @@ export interface Item {
   name: string;
   price: number;
   isCollected: boolean;
+  category: string;
 }
 
 export type Items = Item[];

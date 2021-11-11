@@ -1,7 +1,10 @@
 import React from "react";
 import { Items } from "../apptypes";
+import { FilterItems } from "../shoppinglist/SearchBar";
 
 export type Store =  {
+  allItems: FilterItems[];
+  setAllItems: (fetchedItems: FilterItems[]) => void;
   currentItemIndex: number;
   changeItemIndex: (index: number) => void;
   itemList: Items;
@@ -14,5 +17,7 @@ export const DataStoreContext = React.createContext<Store>({
   changeItemIndex: () => {},
   itemList: [],
   setItemList: () => {},
-  toggleCollect: () => {}
+  toggleCollect: () => {},
+  allItems: [],
+  setAllItems: () => {}
 });
