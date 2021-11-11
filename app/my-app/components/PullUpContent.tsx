@@ -18,9 +18,18 @@ export default function PullUpContent(props: Props) {
   const { itemList, setItemList, toggleCollect } =
     React.useContext(DataStoreContext);
 
-  const currentItem =
-    currentItemIndex < itemList.length ? itemList[currentItemIndex] : null;
-  
+  const currentItem: Item =
+    currentItemIndex < itemList.length
+      ? itemList[currentItemIndex]
+      : {
+          id: -1,
+          name: 'Heading to checkout',
+          price: 0,
+          isCollected: true,
+          category: 'checkout',
+          position: 0,
+        };
+
   console.log(currentItem);
 
   const moveToNextItem = () => {
@@ -40,21 +49,33 @@ export default function PullUpContent(props: Props) {
     <View style={styles.topPart}>
       <View style={styles.leftCol}>
         <Text style={styles.smallText}>General Shopping</Text>
-        <Text style={styles.itemName}>
-          {currentItem ? currentItem.name : 'Heading to checkout'}
-        </Text>
+        <Text style={styles.itemName}>{currentItem.name}</Text>
         <Text style={styles.itemPosition}>
-          {currentItem ? positionMapping[currentItem.position - 1] : ''}
+          {currentItem.id !== -1
+            ? positionMapping[currentItem.position - 1]
+            : ''}
         </Text>
       </View>
       <View style={styles.rightCol}>
-        <Ionicons
-          onClick={handleClick}
-          name={isClicked ? 'checkmark-circle' : 'checkmark-circle-outline'}
-          size={63}
-          style={styles.checkmark}
-          color={mapCategoryToColour(currentItem ? currentItem.category : '')}
-        />
+        {currentItem.id !== -1 ? (
+          <Ionicons
+            onClick={handleClick}
+            name={isClicked ? 'checkmark-circle' : 'checkmark-circle-outline'}
+            size={63}
+            style={styles.checkmark}
+            color={mapCategoryToColour(
+              currentItem.id !== -1 ? currentItem.category : ''
+            )}
+          />
+        ) : (
+          <Ionicons
+            onClick={handleClick}
+            name={isClicked ? 'cart' : 'cart-outline'}
+            size={63}
+            style={styles.checkmark}
+            color={'rgb(30, 83, 154)'}
+          />
+        )}
       </View>
     </View>
   );
