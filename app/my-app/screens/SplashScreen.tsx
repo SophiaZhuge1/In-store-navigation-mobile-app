@@ -11,7 +11,7 @@ import * as Animatable from 'react-native-animatable';
 import { useTheme } from '@react-navigation/native';
 
 
-const SplashScreen = ({navigation}:any) => {
+const SplashScreen = ({navigation}) => {
     const { colors } = useTheme();
     
     return (
@@ -37,14 +37,13 @@ const SplashScreen = ({navigation}:any) => {
             
             <Text style={styles.text}>Sign in with an account</Text>
             <View style={styles.button}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
 
                 <Text style={styles.textSignIn}>Sign in</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </View>
             <View style={styles.button2}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
-
                 <Text style={styles.textSignUp}>Sign up</Text>
             </TouchableOpacity>
             </View>

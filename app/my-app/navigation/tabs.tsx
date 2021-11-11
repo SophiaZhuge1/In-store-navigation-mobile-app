@@ -8,6 +8,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 import { Text, View } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import Colors from '../constants/Colors';
+import RootStackScreen from '../screens/RootStackScreen';
 
 const Tab = createBottomTabNavigator();
  
@@ -100,7 +101,7 @@ const Tabs = () => (
                 },
             }}
         />
-        <Tab.Screen name="Sign Up" component={SignUpScreen} 
+        {/* <Tab.Screen name="Sign Up" component={SignUpScreen} 
                     options={{
                         tabBarLabelStyle: {
                             fontSize: 16,
@@ -123,7 +124,8 @@ const Tabs = () => (
                             );
                         },
                     }}
-                />
+                /> */}
+                <Tab.Screen name = 'RootStackScreen' component={RootStackScreen}/>
 
     </Tab.Navigator>
 
