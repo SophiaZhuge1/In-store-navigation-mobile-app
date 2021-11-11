@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     flex:2,
     borderBottomWidth:1,
     borderColor:"#f2f2f2",
-    //borderWidth:1,
+    //borderWidth:1
     width:"100%"
     
   },

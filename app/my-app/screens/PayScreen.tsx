@@ -14,12 +14,12 @@ export default function PayScreen() {
               <Text style={styles.t1}>Scan the barcode below at the checkout</Text>
           </View>
           <View style={styles.c1}>
-          <Image source={require('../checkout/barcode.png' )}/>
-          </View>
-          <View style={styles.c}>
-              <Text style={styles.t2}>Once scanned please follow the instructions on the checkout screen</Text>
+          <Image style={{height:180,width:"100%",padding:10,}} source={require('../checkout/barcode.png')}/>
           </View>
           <View style={styles.c2}>
+              <Text style={styles.t2}>Once scanned please follow the instructions on the checkout screen</Text>
+          </View>
+          <View style={styles.c3}>
             <View style={styles.finishedBtn}>
               <TouchableOpacity>
                 
@@ -45,40 +45,52 @@ export default function PayScreen() {
       c:{
         //justifyContent:"center",
         width:"100%",
-        borderWidth:1,
-        padding:70,
+        height:100,
+        //borderWidth:1,
+        padding:60,
         alignItems:"center",
       },
       c1:{
-        borderWidth:1,
+        //borderWidth:1,
+        padding:15,
+        width:"100%"
       },
       c2:{
+        //justifyContent:"center",
         width:"100%",
-        borderWidth:1,
-        paddingVertical:30,
+        height:100,
+        //borderWidth:1,
+        padding:70,
+        alignItems:"center",
+      },
+      c3:{
+        width:"100%",
+        //borderWidth:1,
+        paddingTop:70,
+        
       },
       t1:{
-        fontSize:16,
+        fontSize:18,
         fontWeight:"600",
         textAlign: 'center',
       },
       t2:{
-        fontSize:12,
+        fontSize:14,
         fontWeight:"400",
         textAlign: 'center',
       },
       t3:{
           color:"white",
           fontWeight:"600",
-          fontSize:16,
+          fontSize:20,
           textAlign: 'center',
       },
       finishedBtn:{
         
-        borderWidth:1,
+        //borderWidth:1,
         backgroundColor:"#1e539a",
         borderRadius:100/12,
-        paddingVertical:10,
+        paddingVertical:15,
         //alignItems:"center",
         justifyContent:"center",
         paddingHorizontal:5,

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
-import { StyleSheet,Button ,TouchableHighlight } from 'react-native';
+import { StyleSheet,Button ,TouchableOpacity } from 'react-native';
+import CheckoutBtn from '../checkout/CheckoutBtn';
 
 export default function Checkout ({shoppingList}) {
     //console.log(shoppingList)
@@ -17,9 +18,7 @@ export default function Checkout ({shoppingList}) {
                 <View  style={{ backgroundColor:"none",}}><Text style={styles.t}>Total Price</Text></View>
                 <View style={{ backgroundColor:"none",}}><Text style={styles.t1} >£{sum.toFixed(2)}</Text></View>
             </View>
-            <View style={styles.checkoutBtn}>
-               <Text style={styles.t2}>Checkout</Text> 
-            </View>
+            <CheckoutBtn/>
       </View>
     );}
 const styles = StyleSheet.create({
