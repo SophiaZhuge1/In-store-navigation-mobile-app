@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   },
   footer: {
       flex: 1,
+      top: -40,
       backgroundColor: '#fff',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,

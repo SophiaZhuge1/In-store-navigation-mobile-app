@@ -136,7 +136,7 @@ const SignInScreen = ({navigation}:any) => {
                     style={[styles.signIn, {
                         backgroundColor: '#1E539A',
                     }]}
-                    onPress={() => navigation.navigate('TabOneScreen')}
+                    onPress={() => navigation.navigate('Shopping List')}
                 >
                     <Text style={[styles.textSign, {
                         color:'#fff'

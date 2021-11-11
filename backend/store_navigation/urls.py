@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from graphene_django.views import GraphQLView
-from app import views
 from django.views.decorators.csrf import csrf_exempt
 #from django.views.decorators.csrf import ensure_csrf_cookie
+from app import views
+from app.views import NavigationAPI
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
+    path('navigation/', NavigationAPI.as_view()),
     path('<str:item_name>', views.index, name="index"),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True)))
 ]

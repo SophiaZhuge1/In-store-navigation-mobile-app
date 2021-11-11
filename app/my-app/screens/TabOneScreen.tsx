@@ -1,39 +1,67 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types'
 import MapCanvas from '../map';
+import MapList from '../components/MapList';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { DataStoreContext } from '../store';
+import { RootTabScreenProps } from '../types';
+import { Text, View } from '../components/Themed';
+import Stack from '../Collection/Stack';
+import { NavigationScreenProp } from 'react-navigation';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+interface props {
+  navigation: NavigationScreenProp<any, any>;
+}
 
-  const [data, setData] = React.useState('');
-  async function getHelloWorld() {
-    const response = await fetch('http://localhost:8000/');
-    let res = await response.text();
-    setData(res);
-  }
+// Emanuel Code
+export default function TabOneScreen({ navigation }: props) {
+  const [isMapEnabled, setIsMapEnabled] = React.useState(true);
+  const [isPathLoaded, setIsPathLoaded] = React.useState(false);
+  // console.log(navigation, 'tabonescreennav')
 
   //getHelloWorld();
 
   return (
-
-    <View style={styles.container}>
-      {/* <Text style={styles.title}>{data}</Text> */}
-      <Text style={styles.title}>Goddam it</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <MapCanvas />
-    </View>
+    <DataStoreContext.Consumer>
+      {({ currentItemIndex, changeItemIndex }) => (
+        <View style={styles.container}>
+          {!isPathLoaded ? (
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                flex: 1,
+                alignItems: 'center',
+                alignContent: 'center',
+                justifyContent: 'center',
+                zIndex: 1,
+              }}
+            >
+              <ActivityIndicator size="large" color="#1E539A" />
+              <Text style={{ marginTop: 10 }}>
+                Calculating optimal path for your route
+              </Text>
+            </View>
+          ) : null}
+          <MapCanvas
+            currentItemIndex={currentItemIndex}
+            isMapEnabled={isMapEnabled}
+            setIsPathLoaded={setIsPathLoaded}
+          />
+          <MapList navigation={navigation} setIsMapEnabled={setIsMapEnabled} />
+        </View>
+      )}
+    </DataStoreContext.Consumer>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'silver',
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
   title: {
     fontSize: 20,
@@ -43,5 +71,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: '#E8E8E8',
   },
 });

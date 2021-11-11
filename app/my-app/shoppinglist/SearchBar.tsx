@@ -1,69 +1,91 @@
-import React, { useState } from "react";
-import "./SearchBar.css";
-import SearchIcon from "@material-ui/icons/Search";
-import CloseIcon from "@material-ui/icons/Close";
-import groceryData from './items.json';
+import React, { useContext, useState } from 'react';
+import './SearchBar.css';
+import SearchIcon from '@material-ui/icons/Search';
+import CloseIcon from '@material-ui/icons/Close';
 import ShoppingList from './index';
+import { DataStoreContext } from '../store';
 
-interface FuncProps{
-    items:{id:number, text:string, quantity:number, price:number, description:string, weight:string, brand:string}[];
-    increaseQuantity(text:string):void;
-    decreaseQuantity(text:string):void;
-    deleteItem(text:string):void;
-    getTotalPrice():number;
-    addItem(id:number, name:string, newPrice:number, description:string, weight:string, brand:string):void;
-  }
+export type FilterItems = {
+  itemId: number;
+  price: string;
+  brandName: string;
+  itemName: string;
+  category: string;
+  productDescription: string;
+  nutritionalInfo: string;
+  aisleId: number;
+  shelfId: number;
+  position: number;
+  ingredients: string;
+  allergyInfo: string;
+  isVegan: boolean;
+  isDiaryFree: boolean;
+  isNutFree: boolean;
+  isGlutenFree: boolean;
+  netWeight: string;
+};
 
-const SearchBar:React.FC<FuncProps>=(props)=> {
-  const [filteredData, setFilteredData] = useState([]);
-  const [wordEntered, setWordEntered] = useState("");
+interface FuncProps {
+  items: {
+    id: number;
+    text: string;
+    quantity: number;
+    price: number;
+    description: string;
+    weight: string;
+    brand: string;
+  }[];
+  increaseQuantity(text: string): void;
+  decreaseQuantity(text: string): void;
+  deleteItem(text: string): void;
+  getTotalPrice(): number;
+  addItem(
+    id: number,
+    name: string,
+    newPrice: number,
+    description: string,
+    weight: string,
+    brand: string,
+    category: string,
+    position: number
+  ): void;
+}
+
+const SearchBar: React.FC<FuncProps> = (props) => {
+  const [filteredData, setFilteredData] = useState<FilterItems[]>([]);
+  const [wordEntered, setWordEntered] = useState('');
   const [add, setAdd] = useState(false);
-  const goods = groceryData.filter(entry => entry.model==="app.items")
+  const { allItems: goods } = useContext(DataStoreContext);
   const toggle = () => setAdd(!add);
 
-
-  const handleFilter = (event:any) => {
+  const handleFilter = (event: any) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const newFilter = goods.filter((value) => {
-      return value.fields.item_name.toLowerCase().includes(searchWord.toLowerCase());
-    })
+      return value.itemName.toLowerCase().includes(searchWord.toLowerCase());
+    });
 
-    if (searchWord === "") {
+    if (searchWord === '') {
       setFilteredData([]);
     } else {
-      setFilteredData(newFilter)
+      setFilteredData(newFilter);
     }
-
   };
 
   const clearInput = () => {
     setFilteredData([]);
-    setWordEntered("");
+    setWordEntered('');
   };
-  
-  /*
-  const handleOnClick = (id, name, price) => {
-    const item_name = goods.filter((val) => {
-      return val.fields.item_name;
-    });
-    const item_id = goods.filter((val) => {
-      return val.fields.item_id;
-    });
-    const price = goods.filter((val) => {
-      return val.fields.price;
-    });
-    ShoppingList.addItem(item_id, item_name, price);
-  }
-*/
 
   return (
     <div className="search">
-      <div className="searchInputs" 
+      <div
+        className="searchInputs"
         tabIndex={0}
         role="button"
-        onKeyPress={() => toggle(!add)}
-        onClick={() => toggle(!add)}>
+        onKeyPress={toggle}
+        onClick={toggle}
+      >
         <input
           type="text"
           placeholder="Add Item"
@@ -85,16 +107,33 @@ const SearchBar:React.FC<FuncProps>=(props)=> {
         <ul className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <li className="list-item" key={value.fields.item_id}>
-                <button type="button" onClick={()=> props.addItem(value.fields.item_id, value.fields.item_name, value.fields.price, value.fields.product_description, value.fields.net_weight, value.fields.brand_name)}>
-                  <span>{value.fields.item_name} </span>
-                  <span>{value.fields.category}</span>
+              <li className="list-item" key={key}>
+                <button
+                  type="button"
+                  onClick={() =>
+                    props.addItem(
+                      value.aisleId,
+                      value.itemName,
+                      Number(value.price),
+                      value.productDescription,
+                      value.netWeight,
+                      value.brandName,
+                      value.category,
+                      value.position
+                    )
+                  }
+                >
+                  <span>{value.itemName} </span>
+
+                  {/* <span>{value.category}</span> */}
                 </button>
+                <hr className="rounded"></hr>
               </li>
-            )
+            );
           })}
         </ul>
       )}
     </div>
-  )}
-  export default SearchBar;
+  );
+};
+export default SearchBar;

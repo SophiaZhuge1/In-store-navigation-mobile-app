@@ -92,5 +92,6 @@ local_settings.py
 db.sqlite3
 
 env/lib/python3.10/site-packages/sqlparse-0.4.2.dist-info/WHEEL
+/local-utils/
 node_modules
 node_modules

@@ -1,87 +1,131 @@
 import * as React from 'react';
-import { StyleSheet, FlatList } from 'react-native';
-import { useState } from 'react';
-import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from '../components/Themed';
-import ShoppingList from '../shoppinglist';
 import SearchBar from '../shoppinglist/SearchBar';
+import ShoppingList from '../shoppinglist';
+import { StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Text, View } from '../components/Themed';
+import { useState } from 'react';
+import { Item } from '../apptypes';
+import { DataStoreContext } from '../store';
 
+type BackendItem = {
+  id: number;
+  text: string;
+  quantity: number;
+  price: number;
+  description: string;
+  weight: string;
+  brand: string;
+  category: string;
+  position: number;
+};
 
-
-
+function mapBackendItemToFrontendItem(item: BackendItem): Item {
+  return {
+    id: item.id,
+    price: item.price,
+    category: item.category,
+    name: item.text,
+    isCollected: false,
+    position: item.position,
+  };
+}
 
 export default function TabTwoScreen() {
+  const [items, setItems] = useState<BackendItem[]>([]);
+  const { itemList, setItemList } = React.useContext(DataStoreContext);
 
-  const [items, setItems] = useState([
-    {id: -1, text: '', quantity:0, price:0, description:'', weight:'', brand:''},
-    // {id: 1, text: 'Milk', quantity:1, price:1},
-    // {id: 2, text: 'Cheese', quantity:1, price:2},
-    // {id: 3, text: 'Rice', quantity:1, price:3},
-    // {id: 4, text: 'Bread', quantity:1, price:4}
-  ])
-
-  const addItem=(id:number, name:string, newPrice:number, newDescription:string, weight:string, brand:string) => {
+  const addItem = (
+    id: number,
+    name: string,
+    newPrice: number,
+    newDescription: string,
+    weight: string,
+    brand: string,
+    category: string,
+    position: number
+  ) => {
     let alreadyAdded = false;
-    let newCartItems = items.map( (item,index)=>{
+    let newCartItems = items.map((item, index) => {
       if (items[index].text == name) {
-        item.quantity +=1;
+        item.quantity += 1;
         alreadyAdded = true;
-        return item
+        return item;
       } else {
         return item;
       }
     });
-    if(alreadyAdded){
+    if (alreadyAdded) {
       setItems(newCartItems);
-    } else{
-    setItems(prevItems =>{
-        return [...prevItems, {id:id, text:name, quantity:1, price: newPrice, description:newDescription, weight:weight, brand:brand}]
+    } else {
+      const newItem = {
+        id: id,
+        text: name,
+        quantity: 1,
+        price: newPrice,
+        description: newDescription,
+        weight: weight,
+        brand: brand,
+        category: category,
+        position: position
+      };
+      setItems((prevItems) => {
+        return [
+          ...prevItems,
+          newItem,
+        ];
       });
+      setItemList([...items, newItem].map(mapBackendItemToFrontendItem));
     }
-  }
+  };
 
-  const deleteItem = (text:string) =>{
-    setItems(prevItems =>{
-      return prevItems.filter(item => item.text!=text);
-    })
-  }
+  const deleteItem = (text: string) => {
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.text != text);
+    });
+  };
 
- const increaseQuantity = (text:string):void=>{
-    let newCartItems = items.map( (item,index)=>{
+  const increaseQuantity = (text: string): void => {
+    let newCartItems = items.map((item, index) => {
       if (items[index].text == text) {
-        item.quantity +=1;
-        return item
+        // console.log('Item name:' + items[index].text);
+        // console.log('text:' + text);
+        item.quantity += 1;
+        return item;
+      } else {
+        // console.log('else');
+        return item;
+      }
+    });
+    setItems(newCartItems);
+  };
+
+  const decreaseQuantity = (text: string): void => {
+    let newCartItems = items.map((item, index) => {
+      if (items[index].text == text) {
+        if (item.quantity != 0) {
+          item.quantity -= 1;
+          return item;
+        } else {
+          return item;
+        }
       } else {
         return item;
       }
     });
     setItems(newCartItems);
-  }
+  };
 
-  const decreaseQuantity = (text:string):void=>{
-    let newCartItems = items.map( (item,index)=>{
-      if (items[index].text == text) {
-        if(item.quantity!=0){
-          item.quantity -=1;
-          return item
-        } else {return item}
-      } else {
-        return item;
-      }
-    });
-    setItems(newCartItems);
-  }
+  const getTotalPrice = () => {
+    return items.reduce(
+      (accumulator, current) => accumulator + current.price * current.quantity,
+      0
+    );
+  };
 
-  const getTotalPrice = ()=>{
-  
-    return items.reduce((accumulator, current) => accumulator + current.price*current.quantity, 0);
-    
-  }
-
-
-  const getList = ()=>{
+  const getList = () => {
     return items;
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -93,42 +137,31 @@ export default function TabTwoScreen() {
           <Text style={styles.recommendedText}>Recommended</Text>
         </View>
         <View style={styles.locationButton}>
-        <Ionicons
-            name="location-outline"
+          <Ionicons
+            name="location-sharp"
             size={25}
-            color={'#1E539A'}
+            color={'#1F539A'}
+            style={styles.locationIcon}
             //style={styles.buttonIcons}
-        />
+          />
         </View>
       </View>
-      {/* <FlatList
-      data = {items} renderItem = {({item})=>(
-        <ListItem item = {item}/>
-      )}
-      
-      /> */}
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+      <SearchBar
+        items={items}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        deleteItem={deleteItem}
+        getTotalPrice={getTotalPrice}
+        addItem={addItem}
       />
-      <SearchBar items = {items}
-          increaseQuantity = {increaseQuantity}
-          decreaseQuantity = {decreaseQuantity}
-          deleteItem = {deleteItem}
-          getTotalPrice = {getTotalPrice}
-          addItem = {addItem}/>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+
+      <ShoppingList
+        items={items}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        deleteItem={deleteItem}
+        getTotalPrice={getTotalPrice}
       />
-      
-      <ShoppingList items = {items}
-          increaseQuantity = {increaseQuantity}
-          decreaseQuantity = {decreaseQuantity}
-          deleteItem = {deleteItem}
-          getTotalPrice = {getTotalPrice}/>
     </View>
   );
 }
@@ -138,11 +171,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    padding: 0,
+    backgroundColor: '#f5f6f7',
   },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop:25,
+    marginTop: 25,
   },
   separator: {
     marginVertical: 30,
@@ -150,54 +186,64 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   header: {
-    flexDirection:'row',
-    justifyContent:'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    height: 78,
+    width: '100%',
+    padding: 0,
+    backgroundColor: '#FFFFFF',
+    borderBottomEndRadius: 10,
+    borderBottomLeftRadius: 10,
   },
-  shoppingListButton:{
-    borderRadius:50,
-    backgroundColor:'#1E539A',
-    marginTop:20,
-    height:30,
-    width:100,
-    justifyContent:'center',
-    alignSelf:'flex-start',
-    marginRight:250
+  shoppingListButton: {
+    borderRadius: 50,
+    backgroundColor: '#1E539A',
+    marginTop: 23,
+    height: 32,
+    width: 119,
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+    marginLeft: 20,
   },
-  shoppinListTex:{
-    color:'#FFFFFF',
+  shoppinListTex: {
+    color: '#FFFFFF',
     fontWeight: 'bold',
-    alignSelf:'center',
-    fontSize:12
+    alignSelf: 'center',
+    fontSize: 14,
   },
-  recommendedText:{
-    color:'black',
+  recommendedText: {
+    color: 'black',
     fontWeight: 'bold',
-    alignSelf:'flex-end',
-    fontSize:12,
-    marginRight:5
+    alignSelf: 'flex-end',
+    fontSize: 14,
+    marginRight: 8,
   },
-  recommendedButton:{
-    borderRadius:50,
-    borderColor:'#1E539A',
-    borderWidth:2,
-    marginTop:20,
-    height:30,
-    width:200,
-    justifyContent:'center',
-    position:'absolute',
-    marginLeft:1,
-    backgroundColor: 'none'
+  recommendedButton: {
+    borderRadius: 50,
+    borderColor: '#1E539A',
+    borderWidth: 1,
+    marginTop: 23,
+    height: 32,
+    width: 235,
+    justifyContent: 'center',
+    position: 'absolute',
+    marginLeft: 20,
+    backgroundColor: 'none',
   },
-  locationButton:{
-    justifyContent:'center',
-    alignSelf:'center',
-    marginTop:20,
-    borderColor:'#1E539A',
-    borderWidth:2,
-    position:'absolute',
-    borderRadius:50,
-    height: 30,
-    marginLeft:300
-  }
-
+  locationButton: {
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+    marginTop: 23,
+    borderColor: '#1E539A',
+    borderWidth: 1,
+    position: 'absolute',
+    borderRadius: 22,
+    height: 31,
+    width: 42,
+    marginLeft: 310,
+  },
+  locationIcon: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
 });
