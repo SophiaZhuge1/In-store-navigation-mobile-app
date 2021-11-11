@@ -35,7 +35,7 @@ export default function App(): JSX.Element {
     });
   };
   
-  const mapItem = (item: Item, id: number) => {
+  const mapItem = (item: Item, id: number): Item => {
     return item.id === id
       ? {
           id,
@@ -43,10 +43,12 @@ export default function App(): JSX.Element {
           isCollected: !item.isCollected,
           price: item.price,
           category: item.category,
+          position: item.position,
         }
       : item;
   };
   const toggleCollect = (id: number) => {
+    console.log(id, itemList)
     setItemList(itemList.map((item) => mapItem(item, id)));
   };
 

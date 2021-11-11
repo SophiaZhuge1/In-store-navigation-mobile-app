@@ -10,6 +10,7 @@ import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { StyleSheet } from 'react-native';
+import Stack from '../Collection/Stack';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,18 +25,10 @@ const Tabs = () => (
     }}
   >
     <Tab.Screen
-      name="Tesco Hammersmith"
-      component={TabOneScreen}
+      name="Map"
+      component={Stack}
       options={{
-        headerStyle: {
-          backgroundColor: '#E8E8E8',
-        },
-        headerTitleStyle: {
-          fontWeight: '600',
-          fontSize: 18,
-        },
-        headerTitleAlign: 'center',
-
+        headerShown: false,
         tabBarLabel: (tabInfo) => {
           if (tabInfo.focused) {
             return <View style={styles.focusedLabel}></View>;

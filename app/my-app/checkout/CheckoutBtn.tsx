@@ -1,40 +1,24 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
 import { StyleSheet, Button, TouchableOpacity } from 'react-native';
-import CheckoutBtn from '../checkout/CheckoutBtn';
 import { NavigationScreenProp } from 'react-navigation';
-import { DataStoreContext } from '../store';
 
 interface props {
   navigation: NavigationScreenProp<any, any>;
 }
 
-export default function Checkout({ navigation }: props) {
-  //console.log(shoppingList)
-  const [total, setTotal] = React.useState(0);
-  const {itemList} = React.useContext(DataStoreContext);
-  const sum = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + cur.price, 0);
-  // console.log(sum, itemList);
-
-  // console.log(navigation, 'checkoutnav')
+function CheckoutBtn({ navigation }: props) {
+    // console.log(navigation, 'checkoutbtnnav')
   return (
-    // console.log('Here'),
-    (
-      <View style={styles.c}>
-        <View style={styles.price}>
-          <View style={{ backgroundColor: 'none' }}>
-            <Text style={styles.t}>Total Price</Text>
-          </View>
-          <View style={{ backgroundColor: 'none' }}>
-            <Text style={styles.t1}>£{sum.toFixed(2)}</Text>
-          </View>
-        </View>
-        <CheckoutBtn navigation={navigation} />
-      </View>
-    )
-    //console.log("there")
+    <TouchableOpacity
+      style={styles.checkoutBtn}
+      onPress={() => navigation.navigate('Map', {screen: 'CheckoutScreen'})}
+    >
+      <Text style={styles.t2}>Checkout</Text>
+    </TouchableOpacity>
   );
 }
+
 const styles = StyleSheet.create({
   t: {
     color: 'white',
@@ -78,3 +62,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+export default CheckoutBtn;

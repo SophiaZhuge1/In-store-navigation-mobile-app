@@ -30,11 +30,12 @@ export default function PullUpContent(props: Props) {
           position: 0,
         };
 
-  console.log(currentItem);
+  // console.log(currentItem);
 
   const moveToNextItem = () => {
+    console.log(currentItemIndex)
+    toggleCollect(currentItem.id);
     changeItemIndex(currentItemIndex + 1);
-    toggleCollect(currentItemIndex);
     setIsClicked(false);
   };
 

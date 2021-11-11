@@ -7,14 +7,16 @@ import { mapCategoryToColour } from '../helpers';
 import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
 import PullUpContent from './PullUpContent';
+import { NavigationScreenProp } from 'react-navigation';
 
 interface MapListProps {
-  setIsMapEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMapEnabled: (isMapEnabled: boolean) => void;
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export default function MapList(props: MapListProps) {
   const [isExpanded, setIsExpanded] = React.useState(false);
-
+  // console.log(props.navigation, 'maplistnav')
   const customStyle = () => {
     return {
       height: isExpanded ? '330px' : '130px',
@@ -36,7 +38,7 @@ export default function MapList(props: MapListProps) {
             currentItemIndex={currentItemIndex}
             changeItemIndex={changeItemIndex}
           ></PullUpContent>
-          <List></List>
+          <List navigation={props.navigation}></List>
         </RNSP.default>
       )}
     </DataStoreContext.Consumer>

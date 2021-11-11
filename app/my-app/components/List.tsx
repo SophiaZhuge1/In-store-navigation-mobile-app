@@ -2,11 +2,17 @@ import React from 'react';
 import { View } from './Themed';
 import SwipeList from '../Collection/swipeList';
 import { StyleSheet } from 'react-native';
+import { NavigationScreenProp } from 'react-navigation';
 
-export default function List() {
+interface props {
+  navigation: NavigationScreenProp<any, any>;
+}
+
+export default function List({ navigation }: props) {
+  // console.log(navigation, 'list');
   return (
     <View style={styles.container}>
-      <SwipeList />
+      <SwipeList navigation={navigation} />
     </View>
   );
 }

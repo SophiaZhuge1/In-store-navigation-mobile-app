@@ -11,7 +11,7 @@ type Props = {
 
 export default function CollectItem({ shoppingList, toggleCollect }: Props) {
   //console.log(shoppingList)
-  console.log(shoppingList, typeof toggleCollect);
+  // console.log(shoppingList, typeof toggleCollect);
   const currentItem = shoppingList.filter(
     (item) => item.isCollected === false
   )[0];

@@ -81,7 +81,7 @@ export default function MapCanvas(props: MapProps) {
         tempAnimations = [];
       }
     }
-    console.log('Animations sets:', animationsSets);
+    // console.log('Animations sets:', animationsSets);
     setFutureAnimations((futureAnimations) => [
       ...futureAnimations,
       ...animationsSets,
@@ -108,12 +108,12 @@ export default function MapCanvas(props: MapProps) {
           pos: p5Instance.createVector(x, y),
         };
       };
-      console.log(
-        'Path for items:',
-        path_for_items.map((i) => i + 1)
-      );
+      // console.log(
+      //   'Path for items:',
+      //   path_for_items.map((i) => i + 1)
+      // );
       const itemPathPoints = path_for_items.map(mapIdToPoint);
-      console.log('Item path points:', itemPathPoints);
+      // console.log('Item path points:', itemPathPoints);
       const checkoutPathPoints = path_to_checkout.map(mapIdToPoint);
       addLineAnimations(itemPathPoints, p5Instance, ctxInstance);
       addLineAnimations(checkoutPathPoints, p5Instance, ctxInstance);
@@ -269,8 +269,8 @@ export default function MapCanvas(props: MapProps) {
     cnv.mouseWheel(changeScale);
     cnv.touchMoved((e) => e.preventDefault());
 
-    // enables drawing points on canvas
-    cnv.mouseClicked((e) => addGridPoint(e, p5));
+    // // enables drawing points on canvas
+    // cnv.mouseClicked((e) => addGridPoint(e, p5));
     getPath(itemNodes, createCallback(p5, tempCtx));
 
     addPointsToCanvas(p5);
@@ -303,7 +303,7 @@ export default function MapCanvas(props: MapProps) {
 
   const handleUpdate = () => {
     const nextAnimation = futureAnimations[props.currentItemIndex - 1];
-    console.log(nextAnimation, props.currentItemIndex - 1);
+    // console.log(nextAnimation, props.currentItemIndex - 1);
     setAnimations((animations) => [...animations, ...nextAnimation]);
   };
 
