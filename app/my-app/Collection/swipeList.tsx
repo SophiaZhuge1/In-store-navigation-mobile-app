@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
-import { StyleSheet,FlatList,ScrollView ,TouchableOpacity,Animated } from 'react-native';
 import CollectItem from './CollectItem';
 import CollectList from './CollectList';
 import Checkout from './Checkout';
-import Stack from './Stack';
-import CheckoutScreen from '../screens/CheckoutScreen';
 
 export default function SwipeList ({navigation}) {
     const [shoppingList,setShoppingList] = React.useState([
