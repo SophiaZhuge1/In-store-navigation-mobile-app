@@ -5,7 +5,8 @@ import { Text, View } from '../components/Themed';
 import ShoppingList from '../shoppinglist';
 import { Ionicons } from "@expo/vector-icons";
 
-export default function TabTwoScreen() {
+
+export default function CheckoutScreen() {
   return (
     <View style={styles.container}>
       

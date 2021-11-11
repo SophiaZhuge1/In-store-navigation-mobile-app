@@ -10,6 +10,7 @@ import CollectItem from '../Collection/CollectItem';
 import CollectList from '../Collection/CollectList';
 import Checkout from '../Collection/Checkout';
 import SwipeList from '../Collection/swipeList';
+import Stack from '../Collection/Stack';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   // const [shoppingList,setShoppingList] = React.useState([
@@ -49,7 +50,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <Checkout shoppingList ={shoppingList}/>
       </View>
       </View> */}
-      <SwipeList/>
+      <Stack/>
     </View>
     
   );
