@@ -4,12 +4,14 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationScreenProp } from 'react-navigation';
-
+import { DataStoreContext } from '../store';
 interface props {
   navigation: NavigationScreenProp<any,any>
 }
 
 export default function CheckoutScreen({navigation}: props) {
+  const {itemList} = React.useContext(DataStoreContext);
+  const sum = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + cur.price, 0);
   return (
     <View style={styles.container}>
       
@@ -18,7 +20,7 @@ export default function CheckoutScreen({navigation}: props) {
             <Text style={styles.t}>Total price</Text>
           </View>
           <View >
-          <Text style={styles.total}>£15.40</Text>
+          <Text style={styles.total}>£{sum.toFixed(2)}</Text>
           </View>
         </View>
         <View style={styles.c1}>
@@ -27,7 +29,7 @@ export default function CheckoutScreen({navigation}: props) {
             <Text style={styles.summary}>No. of items</Text>
           </View>
           <View style={styles.c3}>
-            <Text style={styles.values}>5</Text>
+            <Text style={styles.values}>{itemList.length-1}</Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -35,7 +37,7 @@ export default function CheckoutScreen({navigation}: props) {
           <Text style={styles.summary}>Clubcard points</Text>
         </View>
         <View style={styles.c3}>
-          <Text style={styles.values}>15</Text>
+          <Text style={styles.values}>{Math.floor(sum)}</Text>
         </View>
       </View>
       <View style={styles.row}>
@@ -43,7 +45,7 @@ export default function CheckoutScreen({navigation}: props) {
           <Text style={styles.summary}>Total savings</Text>
         </View>
         <View style={styles.c3}>
-          <Text style={styles.values}>£4.20</Text>
+          <Text style={styles.values}>£{(sum*0.15).toFixed(2)}</Text>
         </View>
       </View>
       <View style={styles.row}>
@@ -51,7 +53,7 @@ export default function CheckoutScreen({navigation}: props) {
             <Text style={styles.totalText}>Total</Text>
           </View>
           <View style={styles.c3}>
-            <Text style={styles.values}>£15.40</Text>
+            <Text style={styles.values}>£{sum.toFixed(2)}</Text>
           </View>
         </View>
         
