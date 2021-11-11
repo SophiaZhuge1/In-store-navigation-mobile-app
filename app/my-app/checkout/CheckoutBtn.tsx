@@ -4,7 +4,6 @@ import { StyleSheet,Button ,TouchableOpacity } from 'react-native';
 import { RootStackScreenProps } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootTabScreenProps } from '../types'
-import CheckoutScreen from '../screens/CheckoutScreen';
 //import { useNavigation } from 'react-navigation/core';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';

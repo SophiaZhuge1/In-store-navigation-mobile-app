@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import Checkout from './Checkout';
 import SwipeList from './swipeList';
+import PayScreen from '../screens/PayScreen';
 
 const MyStack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default function Stack() {
         
         <MyStack.Screen name="SwipeList" component={SwipeList}/>
         <MyStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+        <MyStack.Screen name="PayScreen" component={PayScreen} />
     </MyStack.Navigator>
   );
 }
