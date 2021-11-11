@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Item, Items } from '../apptypes';
+import { mapCategoryToColour } from '../helpers';
 
 export default function CollectList({
   shoppingList,
@@ -39,7 +40,7 @@ export default function CollectList({
                   }
                   size={30}
                   onPress={() => toggleCollect(item.id)}
-                  color="blue"
+                  color={mapCategoryToColour(item.category)}
                 />
               </View>
             </View>

@@ -5,7 +5,8 @@ import React from 'react';
 import Sketch from 'react-p5';
 import { Dimensions } from 'react-native';
 import LineAnimation from './LineAnimation';
-import { getPath, mockNodes, NodeId, ResponseData } from '../backendconnection';
+import { getPath, NodeId, ResponseData } from '../backendconnection';
+import { DataStoreContext } from '../store';
 
 /**
  * Map location point
@@ -19,6 +20,7 @@ interface Point {
 interface MapProps {
   isMapEnabled: boolean;
   currentItemIndex: number;
+  setIsPathLoaded: (isPathLoaded: boolean) => void;
 }
 
 const arePointsEqual = ({ pos: pos1 }: Point, { pos: pos2 }: Point) => {
@@ -53,6 +55,8 @@ export default function MapCanvas(props: MapProps) {
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D>();
   const [p5, setP5] = React.useState<p5Types>();
   const [animationIndex, setAnimationIndex] = React.useState(0);
+  const {itemList} = React.useContext(DataStoreContext);
+  const itemNodes = itemList.map(item => item.id);
 
   const addLineAnimations = (
     pathPoints: Point[],
@@ -99,7 +103,7 @@ export default function MapCanvas(props: MapProps) {
       ): Point => {
         const { isItem, x, y } = pointPositions[id];
         return {
-          isItem: mockNodes.includes(id) || currentIndex === arr.length - 1,
+          isItem: itemNodes.includes(id) || currentIndex === arr.length - 1,
           isStart: id === START_POINT_INDEX,
           pos: p5Instance.createVector(x, y),
         };
@@ -113,6 +117,7 @@ export default function MapCanvas(props: MapProps) {
       const checkoutPathPoints = path_to_checkout.map(mapIdToPoint);
       addLineAnimations(itemPathPoints, p5Instance, ctxInstance);
       addLineAnimations(checkoutPathPoints, p5Instance, ctxInstance);
+      props.setIsPathLoaded(true);
     };
     return handlePointFetchCallback;
   };
@@ -236,7 +241,7 @@ export default function MapCanvas(props: MapProps) {
     let tempMockPoints: Point[] = [];
     pointPositions
       .filter(
-        (_, index) => mockNodes.includes(index) || index === START_POINT_INDEX
+        (_, index) => itemNodes.includes(index) || index === START_POINT_INDEX
       )
       .forEach((p) => {
         tempMockPoints.push({
@@ -266,7 +271,7 @@ export default function MapCanvas(props: MapProps) {
 
     // enables drawing points on canvas
     cnv.mouseClicked((e) => addGridPoint(e, p5));
-    getPath(mockNodes, createCallback(p5, tempCtx));
+    getPath(itemNodes, createCallback(p5, tempCtx));
 
     addPointsToCanvas(p5);
 

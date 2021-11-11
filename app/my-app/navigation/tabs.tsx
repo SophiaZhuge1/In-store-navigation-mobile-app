@@ -40,7 +40,7 @@ const Tabs = () => (
           if (tabInfo.focused) {
             return <View style={styles.focusedLabel}></View>;
           } else {
-            return <View style={styles.label}>Navigation</View>;
+            return <View style={styles.label}><Text>Navigation</Text></View>;
           }
         },
         tabBarIcon: (tabInfo) => {
@@ -76,7 +76,7 @@ const Tabs = () => (
           if (tabInfo.focused) {
             return <View style={styles.focusedLabel}></View>;
           } else {
-            return <View style={styles.label}>Shopping List</View>;
+            return <View style={styles.label}><Text>Shopping List</Text></View>;
           }
         },
         tabBarIcon: (tabInfo) => {
@@ -110,7 +110,7 @@ const Tabs = () => (
           if (tabInfo.focused) {
             return <View style={styles.focusedLabel}></View>;
           } else {
-            return <View style={styles.label}>Account</View>;
+            return <View style={styles.label}><Text>Account</Text></View>;
           }
         },
         tabBarIcon: (tabInfo) => {

@@ -17,6 +17,7 @@ type BackendItem = {
   weight: string;
   brand: string;
   category: string;
+  position: number;
 };
 
 function mapBackendItemToFrontendItem(item: BackendItem): Item {
@@ -26,6 +27,7 @@ function mapBackendItemToFrontendItem(item: BackendItem): Item {
     category: item.category,
     name: item.text,
     isCollected: false,
+    position: item.position,
   };
 }
 
@@ -40,7 +42,8 @@ export default function TabTwoScreen() {
     newDescription: string,
     weight: string,
     brand: string,
-    category: string
+    category: string,
+    position: number
   ) => {
     let alreadyAdded = false;
     let newCartItems = items.map((item, index) => {
@@ -64,6 +67,7 @@ export default function TabTwoScreen() {
         weight: weight,
         brand: brand,
         category: category,
+        position: position
       };
       setItems((prevItems) => {
         return [

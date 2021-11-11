@@ -46,7 +46,8 @@ interface FuncProps {
     description: string,
     weight: string,
     brand: string,
-    category: string
+    category: string,
+    position: number
   ): void;
 }
 
@@ -106,18 +107,19 @@ const SearchBar: React.FC<FuncProps> = (props) => {
         <ul className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <li className="list-item" key={value.itemId}>
+              <li className="list-item" key={key}>
                 <button
                   type="button"
                   onClick={() =>
                     props.addItem(
-                      value.itemId,
+                      value.aisleId,
                       value.itemName,
                       Number(value.price),
                       value.productDescription,
                       value.netWeight,
                       value.brandName,
-                      value.category
+                      value.category,
+                      value.position
                     )
                   }
                 >

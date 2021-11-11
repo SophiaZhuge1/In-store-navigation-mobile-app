@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     width: 36,
     alignSelf: 'center',
     justifyContent: 'center',
+    marginLeft: 5,
   },
   quantityValue: {
     alignSelf: 'center',

@@ -20,6 +20,8 @@ export default function PullUpContent(props: Props) {
 
   const currentItem =
     currentItemIndex < itemList.length ? itemList[currentItemIndex] : null;
+  
+  console.log(currentItem);
 
   const moveToNextItem = () => {
     changeItemIndex(currentItemIndex + 1);
@@ -32,6 +34,8 @@ export default function PullUpContent(props: Props) {
     setTimeout(moveToNextItem, 500);
   };
 
+  const positionMapping = ['Bottom Shelf', 'Middle Shelf', 'Top Shelf'];
+
   return (
     <View style={styles.topPart}>
       <View style={styles.leftCol}>
@@ -39,7 +43,9 @@ export default function PullUpContent(props: Props) {
         <Text style={styles.itemName}>
           {currentItem ? currentItem.name : 'Heading to checkout'}
         </Text>
-        <Text style={styles.itemPosition}>Position Placeholder</Text>
+        <Text style={styles.itemPosition}>
+          {currentItem ? positionMapping[currentItem.position - 1] : ''}
+        </Text>
       </View>
       <View style={styles.rightCol}>
         <Ionicons
@@ -47,7 +53,7 @@ export default function PullUpContent(props: Props) {
           name={isClicked ? 'checkmark-circle' : 'checkmark-circle-outline'}
           size={63}
           style={styles.checkmark}
-          color={mapCategoryToColour('fruits')}
+          color={mapCategoryToColour(currentItem ? currentItem.category : '')}
         />
       </View>
     </View>
@@ -83,6 +89,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: '10px',
     color: 'black',
+    maxWidth: '200px',
   },
   itemPosition: {
     fontSize: 18,

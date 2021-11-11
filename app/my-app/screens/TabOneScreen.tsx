@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { View } from '../components/Themed';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import MapCanvas from '../map';
 import MapList from '../components/MapList';
@@ -11,6 +11,7 @@ export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<'TabOne'>) {
   const [isMapEnabled, setIsMapEnabled] = React.useState(true);
+  const [isPathLoaded, setIsPathLoaded] = React.useState(false);
 
   //getHelloWorld();
 
@@ -18,9 +19,31 @@ export default function TabOneScreen({
     <DataStoreContext.Consumer>
       {({ currentItemIndex, changeItemIndex }) => (
         <View style={styles.container}>
+          {!isPathLoaded ? (
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                flex: 1,
+                alignItems: 'center',
+                alignContent: 'center',
+                justifyContent: 'center',
+                zIndex: 1
+              }}
+            >
+              <ActivityIndicator size="large" color="#1E539A" />
+              <Text style={{ marginTop: 10 }}>
+                Calculating optimal path for your route
+              </Text>
+            </View>
+          ) : null}
           <MapCanvas
             currentItemIndex={currentItemIndex}
             isMapEnabled={isMapEnabled}
+            setIsPathLoaded={setIsPathLoaded}
           />
           <MapList setIsMapEnabled={setIsMapEnabled} />
         </View>
