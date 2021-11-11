@@ -2,7 +2,6 @@ import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
-import ShoppingList from '../shoppinglist';
 import { Ionicons } from "@expo/vector-icons";
 
 export default function CheckoutScreen({navigation}) {
@@ -60,7 +59,6 @@ export default function CheckoutScreen({navigation}) {
         </View>
         <View style={styles.payBtn}>
           <TouchableOpacity>
-            
             <Text style={styles.btnText}><Ionicons color="white" name="logo-apple"size={20}></Ionicons>Pay</Text>
           </TouchableOpacity>
         </View>

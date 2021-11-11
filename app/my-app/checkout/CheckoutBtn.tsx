@@ -1,27 +1,6 @@
 import * as React from 'react';
 import { Text, View } from '../components/Themed';
 import { StyleSheet,Button ,TouchableOpacity } from 'react-native';
-import { RootStackScreenProps } from '../types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootTabScreenProps } from '../types'
-//import { useNavigation } from 'react-navigation/core';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types';
-import { NavigationContainer } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator} from '@react-navigation/stack'; 
-
-
-// const Stack = createNativeStackNavigator()
-// function CheckoutNavigator() {
-//   return (
-//     <NavigationContainer>
-//         <Stack.Navigator initialRouteName="Checkout">
-//             <Stack.Screen name="Checkout" component={CheckoutScreen} options={{title: 'Checkout'}}/>
-//         </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }  
 
 
 function CheckoutBtn ({navigation}) {
