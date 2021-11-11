@@ -20,7 +20,7 @@ const SplashScreen = ({navigation}) => {
         <View style={styles.header}>
             <Animatable.Image 
                 animation="bounceIn"
-            source={require('../assets/landingText.png')}
+            source={require('../assets/landingText3.png')}
             style={styles.logo}
             resizeMode="stretch"
             />
@@ -37,10 +37,10 @@ const SplashScreen = ({navigation}) => {
             
             <Text style={styles.text}>Sign in with an account</Text>
             <View style={styles.button}>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+            {<TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
 
                 <Text style={styles.textSignIn}>Sign in</Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>}
             </View>
             <View style={styles.button2}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
@@ -90,45 +90,46 @@ const styles = StyleSheet.create({
       fontSize :16
   },
   button: {
-    borderRadius:40,
+    borderRadius:10,
     backgroundColor:'#1E539A',
     marginTop:20,
-    height:40,
-    width:250,
+    height:50,
+    width:'100%',
     justifyContent:'center',
     alignSelf:'flex-start',
-    marginRight:250
+    marginRight:250,
   },
   signIn: {
       width: 150,
-      height: 40,
+      height: 50,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 50,
       flexDirection: 'row',
-      
   },
   textSignIn: {
       color: 'white',
       fontWeight: 'bold',
       textAlign: 'center',
+      fontSize: 18, 
   },
   button2: {
-    borderRadius:40,
+    borderRadius:10,
     borderWidth:2,
+    width: '100%',
     borderColor: '#1E539A',
     marginTop:20,
-    height:40,
-    width:250,
+    height:50,
     justifyContent:'center',
     alignSelf:'flex-start',
-    marginRight:250
+    marginRight:250,
   },
 
   textSignUp: {
     color: '#1E539A',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 18, 
 },
 
 });

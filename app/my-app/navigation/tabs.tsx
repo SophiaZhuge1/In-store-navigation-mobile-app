@@ -77,7 +77,7 @@ const Tabs = () => (
                 },
             }}
         />
-        <Tab.Screen name="Account" component={SplashScreen} 
+        <Tab.Screen name="Account" component={RootStackScreen}
             options={{
                 tabBarLabelStyle: {
                     fontSize: 16,
@@ -85,6 +85,7 @@ const Tabs = () => (
                     marginTop: 0
                 
                   },
+                headerShown:false,
                 tabBarLabel: 'Account',
                 tabBarIcon: (tabInfo) => {
                     return (
@@ -125,8 +126,7 @@ const Tabs = () => (
                         },
                     }}
                 /> */}
-                <Tab.Screen name = 'RootStackScreen' component={RootStackScreen}/>
-
+                {/* <Tab.Screen name = 'RootStackScreen' component={RootStackScreen}/> */}
     </Tab.Navigator>
 
     
