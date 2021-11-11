@@ -13,31 +13,37 @@ interface Props {
 
 export default function PullUpContent(props: Props) {
   const { currentItemIndex, changeItemIndex } = props;
+  const [isClicked, setIsClicked] = React.useState(false);
 
   const { itemList, setItemList, toggleCollect } =
     React.useContext(DataStoreContext);
 
-  const currentItem = currentItemIndex < itemList.length ? itemList[currentItemIndex] : null;
+  const currentItem =
+    currentItemIndex < itemList.length ? itemList[currentItemIndex] : null;
 
-  const handleClick = (
-    currentItemIndex: number,
-    changeItemIndex: (index: number) => void
-  ) => {
-    setIsClicked((isClicked) => !isClicked);
+  const moveToNextItem = () => {
     changeItemIndex(currentItemIndex + 1);
     toggleCollect(currentItemIndex);
+    setIsClicked(false);
   };
-  const [isClicked, setIsClicked] = React.useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+    setTimeout(moveToNextItem, 500);
+  };
+
   return (
     <View style={styles.topPart}>
       <View style={styles.leftCol}>
         <Text style={styles.smallText}>General Shopping</Text>
-        <Text style={styles.itemName}>{currentItem ? currentItem.name : 'Heading to checkout'}</Text>
+        <Text style={styles.itemName}>
+          {currentItem ? currentItem.name : 'Heading to checkout'}
+        </Text>
         <Text style={styles.itemPosition}>Position Placeholder</Text>
       </View>
       <View style={styles.rightCol}>
         <Ionicons
-          onClick={() => handleClick(currentItemIndex, changeItemIndex)}
+          onClick={handleClick}
           name={isClicked ? 'checkmark-circle' : 'checkmark-circle-outline'}
           size={63}
           style={styles.checkmark}

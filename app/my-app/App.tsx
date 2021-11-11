@@ -16,12 +16,15 @@ const mockItems: Items = [
   { id: 1, name: 'Milk', isCollected: false, price: 1.25 },
   { id: 2, name: 'Bread', isCollected: false, price: 0.9 },
   { id: 3, name: 'Sugar', isCollected: false, price: 2.5 },
+  { id: 4, name: 'Eggs', isCollected: false, price: 1.5 },
+  { id: 5, name: 'Flour', isCollected: false, price: 1.5 },
 ]
 
 export default function App(): JSX.Element {
   const isLoadingComplete = useCachedResources();
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [itemList, setItemList] = useState<Item[]>(mockItems);
+  const [currentView, setCurrentView] = useState('list');
   const [isReady, SetIsReady] = useState(false);
   const colorScheme = useColorScheme();
   const LoadFonts = async () => {
@@ -58,7 +61,7 @@ export default function App(): JSX.Element {
           changeItemIndex: setCurrentItemIndex,
           itemList,
           setItemList,
-          toggleCollect
+          toggleCollect,
         }}
       >
         <SafeAreaProvider>

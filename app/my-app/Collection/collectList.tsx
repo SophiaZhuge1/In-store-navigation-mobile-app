@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Item } from '../apptypes';
+import { Item, Items } from '../apptypes';
 
 export default function CollectList({
   shoppingList,
   toggleCollect,
 }: {
-  shoppingList: Array<Item>;
+  shoppingList: Items;
   toggleCollect: (id: number) => void;
 }) {
   return (
@@ -21,6 +21,7 @@ export default function CollectList({
     <View style={styles.c5}>
       <ScrollView style={styles.scrollList}>
         <FlatList
+        scrollEnabled={false}
           data={shoppingList
             .filter((item) => item.isCollected === false)
             .slice(1)}
@@ -45,6 +46,7 @@ export default function CollectList({
           )}
         />
         <FlatList
+          scrollEnabled={false}
           data={shoppingList.filter((item) => item.isCollected === true)}
           renderItem={({ item }) => (
             <View style={styles.c2}>
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
     backgroundColor: 'white',
+    height: 130,
   },
 
   c5: {
@@ -115,6 +118,7 @@ const styles = StyleSheet.create({
     //justifyContent: "space-between",
     //width:"100%",
     backgroundColor: 'white',
+    height: 130
   },
 
   //List Row
@@ -144,8 +148,9 @@ const styles = StyleSheet.create({
   c4: {
     //borderWidth:1,
     backgroundColor: 'white',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
+    paddingRight: 20,
     flex: 2,
   },
 });

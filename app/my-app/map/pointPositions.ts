@@ -1,10 +1,14 @@
+import { NodeId } from "../backendconnection";
+
 interface MapPoint {
   x: number;
   y: number;
   isItem: boolean;
 }
 
-const pointPositions: Array<MapPoint> = [
+export const START_POINT_INDEX : NodeId = 26;
+
+export const pointPositions: MapPoint[] = [
   // row 1
   { x: 60, y: 450, isItem: false },
   { x: 90, y: 450, isItem: true },
@@ -76,6 +80,8 @@ const pointPositions: Array<MapPoint> = [
   { x: 200, y: 190, isItem: true },
   { x: 260, y: 190, isItem: true },
   { x: 310, y: 190, isItem: false },
+  // empty row missing 59
+  { x: -Infinity, y: -Infinity, isItem: false },
   // row 14
   { x: 150, y: 170, isItem: true },
   { x: 310, y: 170, isItem: true },
@@ -91,7 +97,6 @@ const pointPositions: Array<MapPoint> = [
   { x: 310, y: 110, isItem: false },
   { x: 330, y: 110, isItem: true },
   // row 17
-  { x: 150, y: 90, isItem: true },
   { x: 310, y: 90, isItem: true },
   { x: -Infinity, y: -Infinity, isItem: false }, // pos 72 isn't on the map
   // row 18
@@ -111,6 +116,5 @@ const pointPositions: Array<MapPoint> = [
   { x: -Infinity, y: -Infinity, isItem: false }, // pos 84 isn't on the map
   // missing position 85
   { x: 200, y: 370, isItem: true },
+  { x: 150, y: 90, isItem: true },
 ];
-
-export default pointPositions;

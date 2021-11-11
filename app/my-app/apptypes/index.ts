@@ -5,4 +5,4 @@ export interface Item {
   isCollected: boolean;
 }
 
-export type Items = Array<Item>;
+export type Items = Item[];
