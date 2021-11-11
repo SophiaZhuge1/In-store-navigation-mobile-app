@@ -4,12 +4,12 @@ import { StyleSheet,Button ,TouchableOpacity } from 'react-native';
 import { RootStackScreenProps } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootTabScreenProps } from '../types'
-import CheckoutScreen from '../screens/CheckoutScreen';
-import { useNavigation } from '@react-navigation/core';
+//import { useNavigation } from 'react-navigation/core';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 import { NavigationContainer } from '@react-navigation/native';
-import {  createAppContainer } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
+import { createStackNavigator} from '@react-navigation/stack'; 
 
 
 // const Stack = createNativeStackNavigator()
@@ -22,17 +22,19 @@ import {  createAppContainer } from 'react-navigation';
 //     </NavigationContainer>
 //   );
 // }  
-function CheckoutBtn () {
+
+
+function CheckoutBtn ({navigation}) {
     
-    const navigation = useNavigation()
-    console.log(navigation)
     return (
-            <TouchableOpacity style={styles.checkoutBtn} onPress={() => this.props.navigation.navigate('Checkout')}>
+            <TouchableOpacity style={styles.checkoutBtn} onPress={() => navigation.navigate('CheckoutScreen')}>
                <Text style={styles.t2}>Checkout</Text> 
                </TouchableOpacity>
       
     );
 }
+
+
  
  
 const styles = StyleSheet.create({

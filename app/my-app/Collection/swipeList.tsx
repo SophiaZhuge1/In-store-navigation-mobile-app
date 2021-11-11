@@ -4,8 +4,10 @@ import { StyleSheet,FlatList,ScrollView ,TouchableOpacity,Animated } from 'react
 import CollectItem from './CollectItem';
 import CollectList from './CollectList';
 import Checkout from './Checkout';
+import Stack from './Stack';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
-export default function SwipeList () {
+export default function SwipeList ({navigation}) {
     const [shoppingList,setShoppingList] = React.useState([
 		{id:0, name:'Rice', isCollected:false, price:5},
 		{id:1, name:'Milk',isCollected:false, price:1.25},
@@ -24,7 +26,7 @@ return (
     <CollectItem  shoppingList ={shoppingList}  toggleCollect={toggleCollect}/>
     <View style={{ }}>
         <CollectList shoppingList ={shoppingList} toggleCollect={toggleCollect}/>
-        <Checkout shoppingList ={shoppingList}/>
+        <Checkout navigation = {navigation}/>
     </View>
 </View>
 );}

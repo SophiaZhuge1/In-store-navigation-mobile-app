@@ -5,7 +5,7 @@ import { Text, View } from '../components/Themed';
 import ShoppingList from '../shoppinglist';
 import { Ionicons } from "@expo/vector-icons";
 
-export default function CheckoutScreen() {
+export default function CheckoutScreen({navigation}) {
   return (
     <View style={styles.container}>
       
@@ -54,7 +54,7 @@ export default function CheckoutScreen() {
       </View>
       <View style={styles.btns}>
         <View style={styles.tillBtn}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('PayScreen')}>
             <Text style={styles.btnText}>Pay at till</Text>
           </TouchableOpacity>
         </View>
