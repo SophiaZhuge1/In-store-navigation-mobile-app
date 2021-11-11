@@ -16,7 +16,7 @@ const Tabs = () => (
                 height: '10%',
                 borderRadius: 10
             },
-            //tabBarShowLabel: false
+            
         }}
     >
         <Tab.Screen name="Navigation" component={TabOneScreen} 
@@ -27,6 +27,7 @@ const Tabs = () => (
                     marginTop: 0
                 
                   },
+                headerShown: false,
                 tabBarLabel: 'Navigation',
                 tabBarIcon: (tabInfo) => {
                     // <View style = {{alignItems: 'center', justifyContent:'center'}}>
