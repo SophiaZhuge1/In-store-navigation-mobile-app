@@ -5,13 +5,13 @@ import { Text, View } from '../components/Themed';
 import ShoppingList from '../shoppinglist';
 import { Ionicons } from "@expo/vector-icons";
 
-export default function TabTwoScreen() {
+export default function CheckoutScreen() {
   return (
     <View style={styles.container}>
       
         <View style={styles.c}>
           <View style={{alignItems:"center"}}>
-            <Text>Total price</Text>
+            <Text style={styles.t}>Total price</Text>
           </View>
           <View >
           <Text style={styles.total}>£15.40</Text>
@@ -81,21 +81,23 @@ const styles = StyleSheet.create({
   },
   c:{
     alignItems:"center",
-    justifyContent:"center",
-    padding:20,
+    justifyContent:"flex-end",
+    //padding:20,
     flex:2,
     borderBottomWidth:1,
     borderColor:"#f2f2f2",
-    //borderWidth:1
-    width:"100%"
+    //borderWidth:1,
+    width:"100%",
+    paddingTop:40,
+    paddingBottom:10,
     
   },
   c1:{
     //alignItems: 'center',
-    justifyContent:"center",
+    //ustifyContent:"center",
     //borderWidth:1,
     width:"100%",
-    marginTop:50,
+    marginTop:70,
     flex:3,
   },
   
@@ -104,9 +106,10 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     justifyContent:"space-between",
     width:"100%",
-    paddingVertical:70,
-    paddingHorizontal:10,
-    flex:1,
+    marginBottom:40,
+    paddingVertical:30,
+    //paddingHorizontal:10
+    //sflex:2,
 
     //alignItems:"center",
   },
@@ -137,21 +140,25 @@ const styles = StyleSheet.create({
 
   total:{
     padding:20,
-    fontSize:40,
+    fontSize:50,
     color:"#1e539a",
-    fontWeight:"500",
+    fontWeight:"700",
+  },
+  t:{
+    fontSize:18,
+    fontWeight:"400",
   },
   summary:{
     //borderWidth:1,
     fontSize:20,
-    fontWeight:"400",
+    fontWeight:"500",
     color:"grey",
     
   },
   values:{
     fontSize:25,
     color:"#1e539a",
-    fontWeight:"500",
+    fontWeight:"600",
     
   },
   row:{
@@ -166,8 +173,8 @@ const styles = StyleSheet.create({
   },
   tillBtn:{
     
-    paddingHorizontal:15,
-    //paddingVertical:5,
+    paddingHorizontal:25,
+    paddingVertical:15,
     backgroundColor:"#1e539a",
     borderRadius:100/8,
     alignItems:"center",
@@ -180,17 +187,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
-    width:120,
-    
+    width:150,
+    //borderWidth:1,
   },
   payBtn:{
     justifyContent:"center",
-    paddingHorizontal:5,
-    //paddingVertical:5,
+    paddingHorizontal:25,
+    paddingVertical:20,
     backgroundColor:"black",
     borderRadius:100/8,
     alignItems:"center",
-    width:120,
+    width:150,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
