@@ -28,6 +28,7 @@ function mapBackendItemToFrontendItem(item: BackendItem): Item {
     name: item.text,
     isCollected: false,
     position: item.position,
+    quantity:item.quantity,
   };
 }
 
@@ -49,6 +50,9 @@ export default function TabTwoScreen() {
     let newCartItems = items.map((item, index) => {
       if (items[index].text == name) {
         item.quantity += 1;
+        setItemList(prev => {
+          return prev.map(x => item.id==x.id? { ...x,...{quantity:item.quantity}}: x);
+        })
         alreadyAdded = true;
         return item;
       } else {
@@ -67,7 +71,7 @@ export default function TabTwoScreen() {
         weight: weight,
         brand: brand,
         category: category,
-        position: position
+        position: position,
       };
       setItems((prevItems) => {
         return [
@@ -94,6 +98,13 @@ export default function TabTwoScreen() {
         // console.log('Item name:' + items[index].text);
         // console.log('text:' + text);
         item.quantity += 1;
+        console.log(item.quantity)
+        console.log(itemList)
+        setItemList(prev => {
+                return prev.map(x => item.id==x.id? { ...x,...{quantity:item.quantity}}: x);
+              })
+        // var y = 
+        // setItemList(itemList.map((x) => item.id==x.id? x.quantity=item.quantity: x) );
         return item;
       } else {
         // console.log('else');
@@ -108,6 +119,9 @@ export default function TabTwoScreen() {
       if (items[index].text == text) {
         if (item.quantity != 0) {
           item.quantity -= 1;
+          setItemList(prev => {
+            return prev.map(x => item.id==x.id? { ...x,...{quantity:item.quantity}}: x);
+          })
           return item;
         } else {
           return item;

@@ -13,7 +13,7 @@ export default function Checkout({ navigation }: props) {
   //console.log(shoppingList)
   const [total, setTotal] = React.useState(0);
   const {itemList} = React.useContext(DataStoreContext);
-  const sum = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + cur.price, 0);
+  const sum = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + (cur.price*cur.quantity), 0);
   // console.log(sum, itemList);
 
   // console.log(navigation, 'checkoutnav')
