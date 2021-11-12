@@ -52,7 +52,7 @@ export default function PullUpContent(props: Props) {
     <View style={styles.topPart}>
       <View style={styles.leftCol}>
         <Text style={styles.smallText}>General Shopping</Text>
-        <Text style={styles.itemName}>{currentItem.name}</Text>
+        <Text style={styles.itemName}>{currentItem.name} x{currentItem.quantity}</Text>
         <Text style={styles.itemPosition}>
           {currentItem.id !== -1
             ? positionMapping[currentItem.position - 1]

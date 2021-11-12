@@ -5,6 +5,7 @@ export interface Item {
   isCollected: boolean;
   category: string;
   position: number;
+  quantity:number;
 }
 
 export type Items = Item[];
