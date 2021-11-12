@@ -29,7 +29,7 @@ export default function CheckoutScreen({navigation}: props) {
             <Text style={styles.summary}>No. of items</Text>
           </View>
           <View style={styles.c3}>
-            <Text style={styles.values}>{itemList.length-1}</Text>
+            <Text style={styles.values}>{itemList.length}</Text>
           </View>
         </View>
         <View style={styles.row}>

@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   c: {
     ///flex:1,
     //borderWidth:1,
-    backgroundColor: 'blue',
+    backgroundColor: '#1E539A',
     borderRadius: 100 / 9,
     margin: 10,
     padding: 8,

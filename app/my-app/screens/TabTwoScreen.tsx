@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from '../components/Themed';
 import { useState } from 'react';
-import { Item } from '../apptypes';
+import { Item} from '../apptypes';
 import { DataStoreContext } from '../store';
 
 type BackendItem = {
@@ -82,7 +82,10 @@ export default function TabTwoScreen() {
   const deleteItem = (text: string) => {
     setItems((prevItems) => {
       return prevItems.filter((item) => item.text != text);
-    });
+    })
+    setItemList((prevItems) =>  {
+      return prevItems.filter((item:Item) => item.name != text);
+    })
   };
 
   const increaseQuantity = (text: string): void => {
