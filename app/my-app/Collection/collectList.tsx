@@ -15,8 +15,9 @@ export default function CollectList({
   toggleCollect,
 }: {
   shoppingList: Items;
-  toggleCollect: (id: number) => void;
+  toggleCollect: (id: number, quanity:number) => void;
 }) {
+  
   return (
     // <View style={{alignItems:"stretch", justifyContent:"flex-end"}}>
     <View style={styles.c5}>
@@ -29,7 +30,7 @@ export default function CollectList({
           renderItem={({ item }) => (
             <View style={styles.c2}>
               <View style={styles.c3}>
-                <Text style={styles.t1}>{item.name}</Text>
+                <Text style={styles.t1}>{item.name} x{item.quantity}</Text>
               </View>
               <View style={styles.c4}>
                 <Ionicons
@@ -39,7 +40,7 @@ export default function CollectList({
                       : 'checkmark-circle'
                   }
                   size={30}
-                  onPress={() => toggleCollect(item.id)}
+                  onPress={() => toggleCollect(item.id,item.quantity)}
                   color={mapCategoryToColour(item.category)}
                 />
               </View>
@@ -52,14 +53,14 @@ export default function CollectList({
           renderItem={({ item }) => (
             <View style={styles.c2}>
               <View style={styles.c3}>
-                <Text style={styles.t1}>{item.name}</Text>
+                <Text style={styles.t1}>{item.name} x{item.quantity}</Text>
               </View>
               <View style={styles.c4}>
                 <TouchableOpacity>
                   {item.isCollected ? (
                     <Text
                       style={styles.t2}
-                      onPress={() => toggleCollect(item.id)}
+                      onPress={() => toggleCollect(item.id,item.quantity)}
                     >
                       Collected
                     </Text>
@@ -71,7 +72,7 @@ export default function CollectList({
                           : 'checkmark-circle'
                       }
                       size={30}
-                      onPress={() => toggleCollect(item.id)}
+                      onPress={() => toggleCollect(item.id,item.quantity)}
                       color="blue"
                     />
                   )}

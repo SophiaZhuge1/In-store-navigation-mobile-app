@@ -23,6 +23,7 @@ export default function App(): JSX.Element {
   const [allItems, setAllItems] = useState<FilterItems[]>([]);
   const [isReady, SetIsReady] = useState(false);
   const colorScheme = useColorScheme();
+  const [itemQuantities,setItemQuantities] = useState([]);
   const [areItemsLoaded, setAreItemsLoaded] = useState(false);
   const LoadFonts = async () => {
     await useFonts();
@@ -35,7 +36,7 @@ export default function App(): JSX.Element {
     });
   };
   
-  const mapItem = (item: Item, id: number): Item => {
+  const mapItem = (item: Item, id: number, quantity:number): Item => {
     return item.id === id
       ? {
           id,
@@ -44,12 +45,13 @@ export default function App(): JSX.Element {
           price: item.price,
           category: item.category,
           position: item.position,
+          quantity: item.quantity,
         }
       : item;
   };
-  const toggleCollect = (id: number) => {
+  const toggleCollect = (id: number, quantity:number) => {
     console.log(id, itemList)
-    setItemList(itemList.map((item) => mapItem(item, id)));
+    setItemList(itemList.map((item) => mapItem(item, id, quantity)));
   };
 
   const asyncLoadItems = async () => {
@@ -75,6 +77,8 @@ export default function App(): JSX.Element {
           toggleCollect,
           allItems,
           setAllItems,
+          itemQuantities,
+          setItemQuantities,
         }}
       >
         <SafeAreaProvider>

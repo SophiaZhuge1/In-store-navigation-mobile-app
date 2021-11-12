@@ -11,7 +11,8 @@ interface props {
 
 export default function CheckoutScreen({navigation}: props) {
   const {itemList} = React.useContext(DataStoreContext);
-  const sum = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + cur.price, 0);
+  const sum = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + (cur.price*cur.quantity), 0);
+  const no = itemList.filter(item => item.isCollected).reduce((acc, cur) => acc + cur.quantity, 0);
   return (
     <View style={styles.container}>
       
@@ -29,7 +30,7 @@ export default function CheckoutScreen({navigation}: props) {
             <Text style={styles.summary}>No. of items</Text>
           </View>
           <View style={styles.c3}>
-            <Text style={styles.values}>{itemList.length-1}</Text>
+            <Text style={styles.values}>{no}</Text>
           </View>
         </View>
         <View style={styles.row}>
