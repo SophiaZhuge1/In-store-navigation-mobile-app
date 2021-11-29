@@ -1,6 +1,6 @@
 # Tesco in-store navigation app
 
-Group 5 project 
+A digital solution for the client that improved the customers navigation throughout the store and their overall shopping experience. Build a MVP in two weeks demostrating the core features. 
 
 ## Build docker image
 
