@@ -20,7 +20,7 @@ After building the docker image, you can run the server by (still being in the p
 ```[bash]
 sh run_docker.sh
 ```
-(Running front end React Native app see the README in the front-end folder) 
+(Running the front end React Native app see the README in the app/my-app folder) 
 
 ### Full UX design of the app 
 Figma: https://www.figma.com/file/idgjm2VDMiYckvFdPlicEj/Tesco-Navigation-app?node-id=0%3A1 
